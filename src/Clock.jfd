@@ -6,141 +6,183 @@ new FormModel {
 		add( new FormWindow( "javax.swing.JFrame", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 			name: "this"
 			"title": "多功能数字钟"
+			"defaultCloseOperation": 3
+			"$sizePolicy": 1
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "MainPanel"
 				"border": new javax.swing.border.EtchedBorder( 1, null, null )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
+				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) {
+					"axis": 1
+				} ) {
 					name: "Clock"
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-						name: "panel5"
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "label10"
-							"text": "当前时间:"
-							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-							"horizontalAlignment": 0
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "West"
-						} )
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "currentTime"
-							"horizontalAlignment": 0
-							"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 10, false )
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "Center"
-						} )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-							name: "panel6"
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "North"
-						} )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-							name: "panel7"
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "South"
-						} )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-							name: "panel8"
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "East"
-						} )
-					} )
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-						name: "panel4"
-					} )
-				}, new FormLayoutConstraints( null ) {
-					"title": "时钟"
-					"toolTipText": "世界时钟"
-				} )
-				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
-					name: "Alarm"
-					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
-						"columns": 1
-						"rows": 0
+					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridBagLayout ) {
+						"$columnSpecs": "0, 0, 0:1.0"
+						"$rowSpecs": "0:1.0, 0, 0, 0"
+						"$alignTop": true
+						"$alignLeft": true
 					} ) {
-						name: "AddAlarmPanel"
-						"border": new javax.swing.border.TitledBorder( "设置闹钟" )
-						"font": &SwingDerivedFont0 new com.jformdesigner.model.SwingDerivedFont( null, 0, 6, false )
-						"componentOrientation": sfield java.awt.ComponentOrientation LEFT_TO_RIGHT
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) {
-							"columns": 1
-							"rows": 3
-						} ) {
-							name: "panel9"
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
-								name: "panel17"
-								add( new FormComponent( "javax.swing.JSpinner" ) {
-									name: "hours"
-									"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
-									addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "hoursStateChanged", true ) )
-								} )
-								add( new FormComponent( "javax.swing.JLabel" ) {
-									name: "label2"
-									"text": "时"
-									"font": &SwingDerivedFont1 new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
-								} )
-							} )
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
-								name: "panel18"
-								add( new FormComponent( "javax.swing.JSpinner" ) {
-									name: "minutes"
-									"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
-									addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "minutesStateChanged", true ) )
-								} )
-								add( new FormComponent( "javax.swing.JLabel" ) {
-									name: "label4"
-									"text": "分"
-									"font": &SwingDerivedFont2 new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
-								} )
-							} )
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
-								name: "panel19"
-								add( new FormComponent( "javax.swing.JSpinner" ) {
-									name: "seconds"
-									"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
-									addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "secondsStateChanged", true ) )
-								} )
-								add( new FormComponent( "javax.swing.JLabel" ) {
-									name: "label5"
-									"text": "秒"
-									"font": &SwingDerivedFont3 new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
-								} )
-							} )
-						} )
-						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.GridLayout ) ) {
-							name: "panel16"
-							add( new FormComponent( "javax.swing.JCheckBox" ) {
-								name: "checkBox2"
-								"text": "声音开关"
+						name: "panel5"
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
+							name: "panel4"
+							"border": new javax.swing.border.TitledBorder( "当前时间" )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "currentTime"
 								"horizontalAlignment": 0
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 10, false )
+							}, new FormLayoutConstraints( class java.lang.String ) {
+								"value": "Center"
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridwidth": 3
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel7"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label15"
+								"text": "     时区选择:     "
+								"horizontalAlignment": 0
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridy": 1
+							"gridwidth": 2
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel6"
+							add( new FormComponent( "javax.swing.JComboBox" ) {
+								name: "comboBox1"
+								"model": new javax.swing.DefaultComboBoxModel {
+									selectedItem: "中国（GMT +8）"
+									addElement( "中国（GMT +8）" )
+								}
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "button1"
+								"text": "确定"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label18"
+								"text": "          "
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label16"
+								"text": "当前时区:"
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label17"
+								"text": "GMT +8"
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridy": 1
+							"gridx": 2
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel2"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label11"
+								"text": "     闹钟信息:     "
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridy": 2
+							"gridwidth": 2
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel3"
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label12"
+								"text": "闹钟时间:"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "alarmTime"
+								"text": "0: 00:00"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label14"
+								"text": "                 "
+							} )
+							add( new FormComponent( "javax.swing.JCheckBox" ) {
+								name: "alarmSwitch"
+								"text": "闹钟开关"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
 							} )
 							add( new FormComponent( "javax.swing.JCheckBox" ) {
 								name: "checkBox3"
-								"text": "闹钟开关"
-								"horizontalAlignment": 0
+								"text": "声音开关"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
 							} )
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class javax.swing.BoxLayout ) ) {
-								name: "panel20"
-								add( new FormComponent( "javax.swing.JButton" ) {
-									name: "AddAlarmButton"
-									"text": "设置闹钟"
-									"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-								} )
-							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridx": 2
+							"gridy": 2
 						} )
-					}, new FormLayoutConstraints( class java.lang.String ) {
-						"value": "Center"
+						add( new FormComponent( "javax.swing.JLabel" ) {
+							name: "label19"
+							"text": "      闹钟设置:     "
+							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridy": 3
+							"gridwidth": 2
+						} )
+						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
+							name: "panel8"
+							add( new FormComponent( "javax.swing.JSpinner" ) {
+								name: "hours"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+								"model": new javax.swing.SpinnerNumberModel
+								addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "hoursStateChanged", true ) )
+								addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "hoursStateChanged", true ) )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label2"
+								"text": "时"
+								"font": &SwingDerivedFont0 new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
+							} )
+							add( new FormComponent( "javax.swing.JSpinner" ) {
+								name: "minutes"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+								"model": new javax.swing.SpinnerNumberModel
+								addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "minutesStateChanged", true ) )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label4"
+								"text": "分"
+								"font": &SwingDerivedFont1 new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
+							} )
+							add( new FormComponent( "javax.swing.JSpinner" ) {
+								name: "seconds"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+								addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "secondsStateChanged", true ) )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label5"
+								"text": "秒"
+								"font": &SwingDerivedFont2 new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
+							} )
+							add( new FormComponent( "javax.swing.JButton" ) {
+								name: "AddAlarmButton"
+								"text": "设置闹钟时间"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+							} )
+						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
+							"gridx": 2
+							"gridy": 3
+						} )
 					} )
 				}, new FormLayoutConstraints( null ) {
-					"title": "闹钟设置"
-					"toolTipText": "设置闹钟信息"
+					"title": "时钟和闹钟"
+					"toolTipText": "世界时钟"
 				} )
 				add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) {
 					"vgap": 5
 				} ) {
-					name: "CountDown"
+					name: "Countdown"
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 						name: "panel15"
 						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
+						"border": new javax.swing.border.TitledBorder( "操作" )
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "start"
 							"text": "开始"
@@ -165,19 +207,18 @@ new FormModel {
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 						name: "AddCountdownPanel"
 						"border": new javax.swing.border.TitledBorder( "设置倒计时" )
-						"font": #SwingDerivedFont0
+						"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 6, false )
 						"componentOrientation": sfield java.awt.ComponentOrientation LEFT_TO_RIGHT
 						add( new FormComponent( "javax.swing.JSpinner" ) {
 							name: "hours2"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
 							"preferredSize": new java.awt.Dimension( 88, 31 )
-							addEvent( new FormEvent( "java.awt.event.MouseWheelListener", "mouseWheelMoved", "hours2MouseWheelMoved", true ) )
 							addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "hours2StateChanged", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label3"
 							"text": "时"
-							"font": #SwingDerivedFont1
+							"font": #SwingDerivedFont0
 						} )
 						add( new FormComponent( "javax.swing.JSpinner" ) {
 							name: "minutes2"
@@ -187,7 +228,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label6"
 							"text": "分"
-							"font": #SwingDerivedFont2
+							"font": #SwingDerivedFont1
 						} )
 						add( new FormComponent( "javax.swing.JSpinner" ) {
 							name: "seconds2"
@@ -197,15 +238,16 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label7"
 							"text": "秒"
-							"font": #SwingDerivedFont3
+							"font": #SwingDerivedFont2
 						} )
 						add( new FormComponent( "javax.swing.JCheckBox" ) {
 							name: "checkBox1"
 							"text": "打开声音提醒"
+							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
-							name: "AddCountdownButton"
-							"text": "设置倒计时"
+							name: "addCountdownButton"
+							"text": "设置时长"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "AddCountdownButtonMouseClicked", true ) )
 							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "AddCountdownButtonMouseClicked", true ) )
@@ -215,13 +257,7 @@ new FormModel {
 					} )
 					add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) ) {
 						name: "panel14"
-						add( new FormComponent( "javax.swing.JLabel" ) {
-							name: "label1"
-							"text": "剩余时间:"
-							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-						}, new FormLayoutConstraints( class java.lang.String ) {
-							"value": "West"
-						} )
+						"border": new javax.swing.border.TitledBorder( "剩余时间" )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "countdown"
 							"text": "0: 00: 00"
@@ -270,8 +306,8 @@ new FormModel {
 				"value": "Center"
 			} )
 		}, new FormLayoutConstraints( null ) {
-			"location": new java.awt.Point( 5, 0 )
-			"size": new java.awt.Dimension( 710, 330 )
+			"location": new java.awt.Point( 5, 10 )
+			"size": new java.awt.Dimension( 725, 505 )
 		} )
 	}
 }
