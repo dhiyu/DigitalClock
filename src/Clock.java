@@ -1,7 +1,9 @@
 import java.awt.*;
+import java.awt.event.*;
 import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import javax.swing.event.*;
 import javax.swing.table.*;
 import com.jgoodies.forms.factories.*;
 /*
@@ -15,46 +17,127 @@ import com.jgoodies.forms.factories.*;
  */
 public class Clock extends JFrame {
     public Clock() {
+        //初始化组件
         initComponents();
-    }
-    public JLabel getJLabel(){
-        return currentTime;
+        //打开当前时间更新线程
+        Thread thread = new Thread(new UpdateTime(currentTime));
+        thread.start();
+        
     }
 
+    private void AddCountdownButtonMouseClicked(MouseEvent e) {
+        // TODO add your code here
+        int hours = (int) hours2.getValue();
+        int minutes = (int) minutes2.getValue();
+        int seconds = (int) seconds2.getValue();
+        
+        countdown.setText(String.format("%2d: %02d: %02d", hours, minutes, seconds));
+    }
+
+    private void startMouseClicked(MouseEvent e) {
+        // TODO add your code here
+    }
+
+    private void hangOnMouseClicked(MouseEvent e) {
+        // TODO add your code here
+    }
+
+    private void resetMouseClicked(MouseEvent e) {
+        // TODO add your code here
+
+    }
+
+    private void hours2MouseWheelMoved(MouseWheelEvent e) {
+        // TODO add your code here
+    }
+
+    private void hours2StateChanged(ChangeEvent e) {
+        // TODO add your code here
+        //0表示无穷大
+        restrictMaxAndMin(hours2, 0);
+    }
+
+    private void minutes2StateChanged(ChangeEvent e) {
+        // TODO add your code here
+        restrictMaxAndMin(minutes2, 59);
+    }
+
+    private void seconds2StateChanged(ChangeEvent e) {
+        // TODO add your code here
+        restrictMaxAndMin(seconds2, 59);
+    }
+    
+    private void restrictMaxAndMin(JSpinner jSpinner, int max) {
+        int currentValue = (int) jSpinner.getValue();
+        if (max != 0 && currentValue > max){
+            jSpinner.setValue(max);
+        }
+        else if (currentValue < 0){
+            jSpinner.setValue(0);
+        }
+    }
+
+    private void hoursStateChanged(ChangeEvent e) {
+        // TODO add your code here
+        restrictMaxAndMin(hours, 0);
+    }
+
+    private void minutesStateChanged(ChangeEvent e) {
+        // TODO add your code here
+        restrictMaxAndMin(minutes, 59);
+    }
+
+    private void secondsStateChanged(ChangeEvent e) {
+        // TODO add your code here
+        restrictMaxAndMin(seconds, 59);
+    }
+    
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Yu Shi
         MainPanel = new JTabbedPane();
         Clock = new JPanel();
+        panel5 = new JPanel();
         label10 = new JLabel();
         currentTime = new JLabel();
+        panel6 = new JPanel();
+        panel7 = new JPanel();
+        panel8 = new JPanel();
+        panel4 = new JPanel();
         Alarm = new JPanel();
         AddAlarmPanel = new JPanel();
+        panel9 = new JPanel();
+        panel17 = new JPanel();
         hours = new JSpinner();
         label2 = new JLabel();
+        panel18 = new JPanel();
         minutes = new JSpinner();
         label4 = new JLabel();
+        panel19 = new JPanel();
         seconds = new JSpinner();
         label5 = new JLabel();
+        panel16 = new JPanel();
+        checkBox2 = new JCheckBox();
+        checkBox3 = new JCheckBox();
+        panel20 = new JPanel();
         AddAlarmButton = new JButton();
-        AlarmInfo = new JScrollPane();
-        AlarrmInfo = new JTable();
-        Delete = new JPanel();
-        DeleteSelected = new JButton();
         CountDown = new JPanel();
         panel15 = new JPanel();
-        button4 = new JButton();
-        button5 = new JButton();
-        button6 = new JButton();
-        AddAlarmPanel2 = new JPanel();
+        start = new JButton();
+        hangOn = new JButton();
+        reset = new JButton();
+        AddCountdownPanel = new JPanel();
         hours2 = new JSpinner();
         label3 = new JLabel();
         minutes2 = new JSpinner();
         label6 = new JLabel();
         seconds2 = new JSpinner();
         label7 = new JLabel();
-        AddAlarmButton2 = new JButton();
+        checkBox1 = new JCheckBox();
+        AddCountdownButton = new JButton();
         panel14 = new JPanel();
+        label1 = new JLabel();
+        countdown = new JLabel();
         About = new JPanel();
         panel1 = new JPanel();
         label9 = new JLabel();
@@ -71,116 +154,153 @@ public class Clock extends JFrame {
 
             //======== Clock ========
             {
-                Clock.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border. EmptyBorder
-                ( 0, 0, 0, 0) , "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e", javax. swing. border. TitledBorder. CENTER, javax. swing. border
-                . TitledBorder. BOTTOM, new java .awt .Font ("Dialo\u0067" ,java .awt .Font .BOLD ,12 ), java. awt
-                . Color. red) ,Clock. getBorder( )) ); Clock. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void
-                propertyChange (java .beans .PropertyChangeEvent e) {if ("borde\u0072" .equals (e .getPropertyName () )) throw new RuntimeException( )
-                ; }} );
-                Clock.setLayout(new BorderLayout(5, 5));
+                Clock.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax.
+                swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e", javax. swing. border
+                . TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069al\u006fg"
+                ,java .awt .Font .BOLD ,12 ), java. awt. Color. red) ,Clock. getBorder
+                ( )) ); Clock. addPropertyChangeListener (new java. beans. PropertyChangeListener( ){ @Override public void propertyChange (java
+                .beans .PropertyChangeEvent e) {if ("\u0062or\u0064er" .equals (e .getPropertyName () )) throw new RuntimeException
+                ( ); }} );
+                Clock.setLayout(new BoxLayout(Clock, BoxLayout.X_AXIS));
 
-                //---- label10 ----
-                label10.setText("\u5f53\u524d\u65f6\u95f4\uff1a");
-                Clock.add(label10, BorderLayout.WEST);
-                Clock.add(currentTime, BorderLayout.CENTER);
+                //======== panel5 ========
+                {
+                    panel5.setLayout(new BorderLayout());
+
+                    //---- label10 ----
+                    label10.setText("\u5f53\u524d\u65f6\u95f4:");
+                    label10.setFont(label10.getFont().deriveFont(label10.getFont().getSize() + 3f));
+                    label10.setHorizontalAlignment(SwingConstants.CENTER);
+                    panel5.add(label10, BorderLayout.WEST);
+
+                    //---- currentTime ----
+                    currentTime.setHorizontalAlignment(SwingConstants.CENTER);
+                    currentTime.setFont(currentTime.getFont().deriveFont(currentTime.getFont().getStyle() | Font.BOLD, currentTime.getFont().getSize() + 10f));
+                    panel5.add(currentTime, BorderLayout.CENTER);
+
+                    //======== panel6 ========
+                    {
+                        panel6.setLayout(new BorderLayout());
+                    }
+                    panel5.add(panel6, BorderLayout.NORTH);
+
+                    //======== panel7 ========
+                    {
+                        panel7.setLayout(new BorderLayout());
+                    }
+                    panel5.add(panel7, BorderLayout.SOUTH);
+
+                    //======== panel8 ========
+                    {
+                        panel8.setLayout(new BorderLayout());
+                    }
+                    panel5.add(panel8, BorderLayout.EAST);
+                }
+                Clock.add(panel5);
+
+                //======== panel4 ========
+                {
+                    panel4.setLayout(new BorderLayout());
+                }
+                Clock.add(panel4);
             }
-            MainPanel.addTab("\u65f6\u949f", Clock);
+            MainPanel.addTab("\u65f6\u949f", null, Clock, "\u4e16\u754c\u65f6\u949f");
 
             //======== Alarm ========
             {
-                Alarm.setLayout(new BorderLayout(0, 5));
+                Alarm.setLayout(new BorderLayout());
 
                 //======== AddAlarmPanel ========
                 {
-                    AddAlarmPanel.setBorder(new TitledBorder("\u6dfb\u52a0\u95f9\u949f"));
+                    AddAlarmPanel.setBorder(new TitledBorder("\u8bbe\u7f6e\u95f9\u949f"));
                     AddAlarmPanel.setFont(AddAlarmPanel.getFont().deriveFont(AddAlarmPanel.getFont().getSize() + 6f));
                     AddAlarmPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-                    AddAlarmPanel.setLayout(new FlowLayout());
+                    AddAlarmPanel.setLayout(new GridLayout(0, 1));
 
-                    //---- hours ----
-                    hours.setFont(hours.getFont().deriveFont(hours.getFont().getSize() + 2f));
-                    AddAlarmPanel.add(hours);
+                    //======== panel9 ========
+                    {
+                        panel9.setLayout(new GridLayout(3, 1));
 
-                    //---- label2 ----
-                    label2.setText("\u65f6");
-                    label2.setFont(label2.getFont().deriveFont(label2.getFont().getSize() + 5f));
-                    AddAlarmPanel.add(label2);
+                        //======== panel17 ========
+                        {
+                            panel17.setLayout(new FlowLayout());
 
-                    //---- minutes ----
-                    minutes.setFont(minutes.getFont().deriveFont(minutes.getFont().getSize() + 2f));
-                    AddAlarmPanel.add(minutes);
+                            //---- hours ----
+                            hours.setFont(hours.getFont().deriveFont(hours.getFont().getSize() + 2f));
+                            hours.addChangeListener(e -> hoursStateChanged(e));
+                            panel17.add(hours);
 
-                    //---- label4 ----
-                    label4.setText("\u5206");
-                    label4.setFont(label4.getFont().deriveFont(label4.getFont().getSize() + 5f));
-                    AddAlarmPanel.add(label4);
-
-                    //---- seconds ----
-                    seconds.setFont(seconds.getFont().deriveFont(seconds.getFont().getSize() + 2f));
-                    AddAlarmPanel.add(seconds);
-
-                    //---- label5 ----
-                    label5.setText("\u79d2");
-                    label5.setFont(label5.getFont().deriveFont(label5.getFont().getSize() + 5f));
-                    AddAlarmPanel.add(label5);
-
-                    //---- AddAlarmButton ----
-                    AddAlarmButton.setText("\u6dfb\u52a0\u95f9\u949f");
-                    AddAlarmButton.setFont(AddAlarmButton.getFont().deriveFont(AddAlarmButton.getFont().getSize() + 3f));
-                    AddAlarmPanel.add(AddAlarmButton);
-                }
-                Alarm.add(AddAlarmPanel, BorderLayout.NORTH);
-
-                //======== AlarmInfo ========
-                {
-                    AlarmInfo.setBorder(new CompoundBorder(
-                        new TitledBorder("\u95f9\u949f\u4fe1\u606f"),
-                        Borders.DLU2));
-
-                    //---- AlarrmInfo ----
-                    AlarrmInfo.setModel(new DefaultTableModel(
-                        new Object[][] {
-                            {null, null, null, null, true},
-                            {false, null, null, null, false},
-                            {false, null, null, null, null},
-                            {null, null, null, null, null},
-                        },
-                        new String[] {
-                            "\u591a\u9009", "\u5e8f\u53f7", "\u95f9\u949f\u65f6\u95f4", "\u91cd\u590d", "\u5f00\u5173"
+                            //---- label2 ----
+                            label2.setText("\u65f6");
+                            label2.setFont(label2.getFont().deriveFont(label2.getFont().getSize() + 5f));
+                            panel17.add(label2);
                         }
-                    ) {
-                        Class<?>[] columnTypes = new Class<?>[] {
-                            Boolean.class, Integer.class, Date.class, Boolean.class, Boolean.class
-                        };
-                        boolean[] columnEditable = new boolean[] {
-                            true, false, false, true, true
-                        };
-                        @Override
-                        public Class<?> getColumnClass(int columnIndex) {
-                            return columnTypes[columnIndex];
-                        }
-                        @Override
-                        public boolean isCellEditable(int rowIndex, int columnIndex) {
-                            return columnEditable[columnIndex];
-                        }
-                    });
-                    AlarrmInfo.setFont(AlarrmInfo.getFont().deriveFont(AlarrmInfo.getFont().getSize() + 5f));
-                    AlarmInfo.setViewportView(AlarrmInfo);
-                }
-                Alarm.add(AlarmInfo, BorderLayout.CENTER);
+                        panel9.add(panel17);
 
-                //======== Delete ========
-                {
-                    Delete.setLayout(new FlowLayout());
+                        //======== panel18 ========
+                        {
+                            panel18.setLayout(new FlowLayout());
 
-                    //---- DeleteSelected ----
-                    DeleteSelected.setText("\u5220\u9664\u9009\u4e2d\u95f9\u949f");
-                    DeleteSelected.setFont(DeleteSelected.getFont().deriveFont(DeleteSelected.getFont().getSize() + 5f));
-                    Delete.add(DeleteSelected);
+                            //---- minutes ----
+                            minutes.setFont(minutes.getFont().deriveFont(minutes.getFont().getSize() + 2f));
+                            minutes.addChangeListener(e -> minutesStateChanged(e));
+                            panel18.add(minutes);
+
+                            //---- label4 ----
+                            label4.setText("\u5206");
+                            label4.setFont(label4.getFont().deriveFont(label4.getFont().getSize() + 5f));
+                            panel18.add(label4);
+                        }
+                        panel9.add(panel18);
+
+                        //======== panel19 ========
+                        {
+                            panel19.setLayout(new FlowLayout());
+
+                            //---- seconds ----
+                            seconds.setFont(seconds.getFont().deriveFont(seconds.getFont().getSize() + 2f));
+                            seconds.addChangeListener(e -> secondsStateChanged(e));
+                            panel19.add(seconds);
+
+                            //---- label5 ----
+                            label5.setText("\u79d2");
+                            label5.setFont(label5.getFont().deriveFont(label5.getFont().getSize() + 5f));
+                            panel19.add(label5);
+                        }
+                        panel9.add(panel19);
+                    }
+                    AddAlarmPanel.add(panel9);
+
+                    //======== panel16 ========
+                    {
+                        panel16.setLayout(new GridLayout());
+
+                        //---- checkBox2 ----
+                        checkBox2.setText("\u58f0\u97f3\u5f00\u5173");
+                        checkBox2.setHorizontalAlignment(SwingConstants.CENTER);
+                        panel16.add(checkBox2);
+
+                        //---- checkBox3 ----
+                        checkBox3.setText("\u95f9\u949f\u5f00\u5173");
+                        checkBox3.setHorizontalAlignment(SwingConstants.CENTER);
+                        panel16.add(checkBox3);
+
+                        //======== panel20 ========
+                        {
+                            panel20.setLayout(new BoxLayout(panel20, BoxLayout.X_AXIS));
+
+                            //---- AddAlarmButton ----
+                            AddAlarmButton.setText("\u8bbe\u7f6e\u95f9\u949f");
+                            AddAlarmButton.setFont(AddAlarmButton.getFont().deriveFont(AddAlarmButton.getFont().getSize() + 3f));
+                            panel20.add(AddAlarmButton);
+                        }
+                        panel16.add(panel20);
+                    }
+                    AddAlarmPanel.add(panel16);
                 }
-                Alarm.add(Delete, BorderLayout.SOUTH);
+                Alarm.add(AddAlarmPanel, BorderLayout.CENTER);
             }
-            MainPanel.addTab("\u95f9\u949f", Alarm);
+            MainPanel.addTab("\u95f9\u949f\u8bbe\u7f6e", null, Alarm, "\u8bbe\u7f6e\u95f9\u949f\u4fe1\u606f");
 
             //======== CountDown ========
             {
@@ -191,71 +311,116 @@ public class Clock extends JFrame {
                     panel15.setFont(panel15.getFont().deriveFont(panel15.getFont().getSize() + 5f));
                     panel15.setLayout(new FlowLayout());
 
-                    //---- button4 ----
-                    button4.setText("\u5f00\u59cb");
-                    button4.setFont(button4.getFont().deriveFont(button4.getFont().getSize() + 5f));
-                    panel15.add(button4);
+                    //---- start ----
+                    start.setText("\u5f00\u59cb");
+                    start.setFont(start.getFont().deriveFont(start.getFont().getSize() + 5f));
+                    start.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            startMouseClicked(e);
+                        }
+                    });
+                    panel15.add(start);
 
-                    //---- button5 ----
-                    button5.setText("\u6682\u505c");
-                    button5.setFont(button5.getFont().deriveFont(button5.getFont().getSize() + 5f));
-                    panel15.add(button5);
+                    //---- hangOn ----
+                    hangOn.setText("\u6682\u505c");
+                    hangOn.setFont(hangOn.getFont().deriveFont(hangOn.getFont().getSize() + 5f));
+                    hangOn.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            hangOnMouseClicked(e);
+                        }
+                    });
+                    panel15.add(hangOn);
 
-                    //---- button6 ----
-                    button6.setText("\u590d\u4f4d");
-                    button6.setFont(button6.getFont().deriveFont(button6.getFont().getSize() + 5f));
-                    panel15.add(button6);
+                    //---- reset ----
+                    reset.setText("\u590d\u4f4d");
+                    reset.setFont(reset.getFont().deriveFont(reset.getFont().getSize() + 5f));
+                    reset.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            resetMouseClicked(e);
+                        }
+                    });
+                    panel15.add(reset);
                 }
                 CountDown.add(panel15, BorderLayout.SOUTH);
 
-                //======== AddAlarmPanel2 ========
+                //======== AddCountdownPanel ========
                 {
-                    AddAlarmPanel2.setBorder(new TitledBorder("\u8bbe\u7f6e\u5012\u8ba1\u65f6"));
-                    AddAlarmPanel2.setFont(AddAlarmPanel2.getFont().deriveFont(AddAlarmPanel2.getFont().getSize() + 6f));
-                    AddAlarmPanel2.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
-                    AddAlarmPanel2.setLayout(new FlowLayout());
+                    AddCountdownPanel.setBorder(new TitledBorder("\u8bbe\u7f6e\u5012\u8ba1\u65f6"));
+                    AddCountdownPanel.setFont(AddCountdownPanel.getFont().deriveFont(AddCountdownPanel.getFont().getSize() + 6f));
+                    AddCountdownPanel.setComponentOrientation(ComponentOrientation.LEFT_TO_RIGHT);
+                    AddCountdownPanel.setLayout(new FlowLayout());
 
                     //---- hours2 ----
                     hours2.setFont(hours2.getFont().deriveFont(hours2.getFont().getSize() + 2f));
-                    AddAlarmPanel2.add(hours2);
+                    hours2.setPreferredSize(new Dimension(88, 31));
+                    hours2.addMouseWheelListener(e -> hours2MouseWheelMoved(e));
+                    hours2.addChangeListener(e -> hours2StateChanged(e));
+                    AddCountdownPanel.add(hours2);
 
                     //---- label3 ----
                     label3.setText("\u65f6");
                     label3.setFont(label3.getFont().deriveFont(label3.getFont().getSize() + 5f));
-                    AddAlarmPanel2.add(label3);
+                    AddCountdownPanel.add(label3);
 
                     //---- minutes2 ----
                     minutes2.setFont(minutes2.getFont().deriveFont(minutes2.getFont().getSize() + 2f));
-                    AddAlarmPanel2.add(minutes2);
+                    minutes2.addChangeListener(e -> minutes2StateChanged(e));
+                    AddCountdownPanel.add(minutes2);
 
                     //---- label6 ----
                     label6.setText("\u5206");
                     label6.setFont(label6.getFont().deriveFont(label6.getFont().getSize() + 5f));
-                    AddAlarmPanel2.add(label6);
+                    AddCountdownPanel.add(label6);
 
                     //---- seconds2 ----
                     seconds2.setFont(seconds2.getFont().deriveFont(seconds2.getFont().getSize() + 2f));
-                    AddAlarmPanel2.add(seconds2);
+                    seconds2.addChangeListener(e -> seconds2StateChanged(e));
+                    AddCountdownPanel.add(seconds2);
 
                     //---- label7 ----
                     label7.setText("\u79d2");
                     label7.setFont(label7.getFont().deriveFont(label7.getFont().getSize() + 5f));
-                    AddAlarmPanel2.add(label7);
+                    AddCountdownPanel.add(label7);
 
-                    //---- AddAlarmButton2 ----
-                    AddAlarmButton2.setText("\u6dfb\u52a0\u5012\u8ba1\u65f6");
-                    AddAlarmButton2.setFont(AddAlarmButton2.getFont().deriveFont(AddAlarmButton2.getFont().getSize() + 3f));
-                    AddAlarmPanel2.add(AddAlarmButton2);
+                    //---- checkBox1 ----
+                    checkBox1.setText("\u6253\u5f00\u58f0\u97f3\u63d0\u9192");
+                    AddCountdownPanel.add(checkBox1);
+
+                    //---- AddCountdownButton ----
+                    AddCountdownButton.setText("\u8bbe\u7f6e\u5012\u8ba1\u65f6");
+                    AddCountdownButton.setFont(AddCountdownButton.getFont().deriveFont(AddCountdownButton.getFont().getSize() + 3f));
+                    AddCountdownButton.addMouseListener(new MouseAdapter() {
+                        @Override
+                        public void mouseClicked(MouseEvent e) {
+                            AddCountdownButtonMouseClicked(e);
+                            AddCountdownButtonMouseClicked(e);
+                        }
+                    });
+                    AddCountdownPanel.add(AddCountdownButton);
                 }
-                CountDown.add(AddAlarmPanel2, BorderLayout.NORTH);
+                CountDown.add(AddCountdownPanel, BorderLayout.NORTH);
 
                 //======== panel14 ========
                 {
-                    panel14.setLayout(new FlowLayout());
+                    panel14.setLayout(new BorderLayout());
+
+                    //---- label1 ----
+                    label1.setText("\u5269\u4f59\u65f6\u95f4:");
+                    label1.setFont(label1.getFont().deriveFont(label1.getFont().getSize() + 3f));
+                    panel14.add(label1, BorderLayout.WEST);
+
+                    //---- countdown ----
+                    countdown.setText("0: 00: 00");
+                    countdown.setHorizontalAlignment(SwingConstants.CENTER);
+                    countdown.setFont(countdown.getFont().deriveFont(countdown.getFont().getStyle() | Font.BOLD, countdown.getFont().getSize() + 10f));
+                    panel14.add(countdown, BorderLayout.CENTER);
                 }
                 CountDown.add(panel14, BorderLayout.CENTER);
             }
-            MainPanel.addTab("\u5012\u8ba1\u65f6", CountDown);
+            MainPanel.addTab("\u5012\u8ba1\u65f6", null, CountDown, "\u5012\u8ba1\u65f6");
 
             //======== About ========
             {
@@ -280,9 +445,9 @@ public class Clock extends JFrame {
                 }
                 About.add(panel1, BorderLayout.CENTER);
             }
-            MainPanel.addTab("\u5173\u4e8e", About);
+            MainPanel.addTab("\u5173\u4e8e", null, About, "\u5173\u4e8e\u6211");
         }
-        contentPane.add(MainPanel, BorderLayout.NORTH);
+        contentPane.add(MainPanel, BorderLayout.CENTER);
         pack();
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
@@ -292,38 +457,77 @@ public class Clock extends JFrame {
     // Generated using JFormDesigner Evaluation license - Yu Shi
     private JTabbedPane MainPanel;
     private JPanel Clock;
+    private JPanel panel5;
     private JLabel label10;
     private JLabel currentTime;
+    private JPanel panel6;
+    private JPanel panel7;
+    private JPanel panel8;
+    private JPanel panel4;
     private JPanel Alarm;
     private JPanel AddAlarmPanel;
+    private JPanel panel9;
+    private JPanel panel17;
     private JSpinner hours;
     private JLabel label2;
+    private JPanel panel18;
     private JSpinner minutes;
     private JLabel label4;
+    private JPanel panel19;
     private JSpinner seconds;
     private JLabel label5;
+    private JPanel panel16;
+    private JCheckBox checkBox2;
+    private JCheckBox checkBox3;
+    private JPanel panel20;
     private JButton AddAlarmButton;
-    private JScrollPane AlarmInfo;
-    private JTable AlarrmInfo;
-    private JPanel Delete;
-    private JButton DeleteSelected;
     private JPanel CountDown;
     private JPanel panel15;
-    private JButton button4;
-    private JButton button5;
-    private JButton button6;
-    private JPanel AddAlarmPanel2;
+    private JButton start;
+    private JButton hangOn;
+    private JButton reset;
+    private JPanel AddCountdownPanel;
     private JSpinner hours2;
     private JLabel label3;
     private JSpinner minutes2;
     private JLabel label6;
     private JSpinner seconds2;
     private JLabel label7;
-    private JButton AddAlarmButton2;
+    private JCheckBox checkBox1;
+    private JButton AddCountdownButton;
     private JPanel panel14;
+    private JLabel label1;
+    private JLabel countdown;
     private JPanel About;
     private JPanel panel1;
     private JLabel label9;
     private JLabel label8;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
+}
+
+
+class UpdateTime implements Runnable {
+    private JLabel jLabel;
+
+    public UpdateTime(JLabel jlabel) {
+        this.jLabel = jlabel;
+    }
+    @Override
+    public void run() {
+        while(true) {
+            Calendar calendar = Calendar.getInstance();
+            String currentTime = calendar.get(Calendar.YEAR) + "年"
+                    + (calendar.get(Calendar.MONTH) + 1) + "月"
+                    + calendar.get(Calendar.DATE) + "日"
+                    + String.format("%2d", calendar.get(Calendar.HOUR_OF_DAY)) + ":"
+                    + String.format("%02d", calendar.get(Calendar.MINUTE)) + ":"
+                    + String.format("%02d", calendar.get(Calendar.SECOND));
+            this.jLabel.setText(currentTime);
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 }
