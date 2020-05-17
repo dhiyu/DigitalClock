@@ -8,6 +8,22 @@ new FormModel {
 			"title": "多功能数字钟"
 			"defaultCloseOperation": 3
 			"$sizePolicy": 1
+			add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.BorderLayout ) {
+				"hgap": 5
+				"vgap": 5
+			} ) {
+				name: "toast"
+				"border": new javax.swing.border.TitledBorder( "消息提示" )
+				add( new FormComponent( "javax.swing.JLabel" ) {
+					name: "message"
+					"text": "    "
+					"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 12, false )
+				}, new FormLayoutConstraints( class java.lang.String ) {
+					"value": "Center"
+				} )
+			}, new FormLayoutConstraints( class java.lang.String ) {
+				"value": "South"
+			} )
 			add( new FormContainer( "javax.swing.JTabbedPane", new FormLayoutManager( class javax.swing.JTabbedPane ) ) {
 				name: "MainPanel"
 				"border": new javax.swing.border.EtchedBorder( 1, null, null )
@@ -28,7 +44,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JLabel" ) {
 								name: "currentTime"
 								"horizontalAlignment": 0
-								"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 10, false )
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 15, false )
 							}, new FormLayoutConstraints( class java.lang.String ) {
 								"value": "Center"
 							} )
@@ -50,28 +66,55 @@ new FormModel {
 						add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class java.awt.FlowLayout ) ) {
 							name: "panel6"
 							add( new FormComponent( "javax.swing.JComboBox" ) {
-								name: "comboBox1"
+								name: "selectZone"
 								"model": new javax.swing.DefaultComboBoxModel {
-									selectedItem: "中国（GMT +8）"
-									addElement( "中国（GMT +8）" )
+									selectedItem: "中国-北京(GMT +8)"
+									addElement( "中国-北京(GMT +8)" )
+									addElement( "中国-香港(GMT +8)" )
+									addElement( "英国-伦敦(GMT +0)" )
+									addElement( "冰岛-雷克雅未克(GMT +0)" )
+									addElement( "爱尔兰-都柏林(GMT +0)" )
+									addElement( "阿尔及利亚-阿尔及尔(GMT +0)" )
+									addElement( "英国-格林威治(GMT +0)" )
+									addElement( "挪威-奥斯陆(GMT +1)" )
+									addElement( "德国-柏林(GMT +1)" )
+									addElement( "奥地利-维也纳(GMT +1)" )
+									addElement( "意大利-罗马(GMT +1)" )
+									addElement( "突尼斯(GMT +1)" )
+									addElement( "土耳其-安卡拉(GMT +2)" )
+									addElement( "埃及-开罗(GMT +2)" )
+									addElement( "俄罗斯-莫斯科(GMT +3)" )
+									addElement( "伊拉克-巴格达(GMT +3)" )
+									addElement( "以色列-耶路撒冷(GMT +3)" )
+									addElement( "巴勒斯坦-耶路撒冷(GMT +3)" )
+									addElement( "哈萨克斯坦-阿斯塔纳(GMT +5)" )
+									addElement( "乌兹别克斯坦-塔什干(GMT +5)" )
+									addElement( "印度-新德里(GMT +5)" )
+									addElement( "巴基斯坦-伊斯兰堡(GMT +5)" )
+									addElement( "巴基斯坦-卡拉棋(GMT +5)" )
+									addElement( "孟加拉国-达卡(GMT +6)" )
+									addElement( "越南-河内(GMT +7)" )
+									addElement( "老挝-万象(GMT +7)" )
+									addElement( "泰国-曼谷(GMT +7)" )
+									addElement( "柬埔寨-金边(GMT +7)" )
+									addElement( "新加坡(GMT +7)" )
+									addElement( "朝鲜-平壤(GMT +9)" )
+									addElement( "韩国-首尔(GMT +9)" )
+									addElement( "日本-东京(GMT +9)" )
+									addElement( "澳大利亚-悉尼(GMT +10)" )
+									addElement( "澳大利亚-堪培拉(GMT +10)" )
+									addElement( "新西兰-惠灵顿(GMT +12)" )
+									addElement( "美国-檀香山(GMT -10)" )
+									addElement( "美国-华盛顿(GMT -5)" )
+									addElement( "美国-纽约(GMT -5)" )
+									addElement( "秘鲁-利马(GMT -5)" )
+									addElement( "厄瓜多尔-基多(GMT -5)" )
+									addElement( "智利-圣地亚哥(GMT -5)" )
+									addElement( "巴西-巴西利亚(GMT -3)" )
+									addElement( "新喀里多尼亚-努阿美(GMT +11)" )
+									addElement( "格鲁吉亚-第比利斯(GMT +4)" )
 								}
-							} )
-							add( new FormComponent( "javax.swing.JButton" ) {
-								name: "button1"
-								"text": "确定"
-								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-							} )
-							add( new FormComponent( "javax.swing.JLabel" ) {
-								name: "label18"
-								"text": "          "
-							} )
-							add( new FormComponent( "javax.swing.JLabel" ) {
-								name: "label16"
-								"text": "当前时区:"
-							} )
-							add( new FormComponent( "javax.swing.JLabel" ) {
-								name: "label17"
-								"text": "GMT +8"
+								addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "selectZoneItemStateChanged", true ) )
 							} )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 							"gridy": 1
@@ -108,11 +151,13 @@ new FormModel {
 								name: "alarmSwitch"
 								"text": "闹钟开关"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "alarmSwitchMouseClicked", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JCheckBox" ) {
-								name: "checkBox3"
+								name: "alarmVoice"
 								"text": "声音开关"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "alarmVoiceMouseClicked", true ) )
 							} )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 							"gridx": 2
@@ -165,6 +210,7 @@ new FormModel {
 								name: "AddAlarmButton"
 								"text": "设置闹钟时间"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "AddAlarmButtonMouseClicked", true ) )
 							} )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 							"gridx": 2
@@ -241,9 +287,10 @@ new FormModel {
 							"font": #SwingDerivedFont2
 						} )
 						add( new FormComponent( "javax.swing.JCheckBox" ) {
-							name: "checkBox1"
+							name: "countdownVoice"
 							"text": "打开声音提醒"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
+							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "countdownVoiceMouseClicked", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "addCountdownButton"
@@ -262,7 +309,7 @@ new FormModel {
 							name: "countdown"
 							"text": "0: 00: 00"
 							"horizontalAlignment": 0
-							"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 10, false )
+							"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 15, false )
 						}, new FormLayoutConstraints( class java.lang.String ) {
 							"value": "Center"
 						} )
@@ -289,11 +336,11 @@ new FormModel {
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label8"
-							"text": "<html> <p style=\"text-align:center\">2019-2020第二学期<br>  Q17010307 石宇<br>  JAVA大作业<br> Ver1.0.2<br></p> </html>"
+							"text": "<html> <p style=\"text-align:center\">2019-2020第二学期<br>  Q17010307 石宇<br>  JAVA大作业<br> Ver2.0.1<br></p> </html>"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 5, false )
 							"horizontalAlignment": 0
 							"horizontalTextPosition": 0
-							"border": sfield com.jgoodies.forms.factories.Borders DLU2_BORDER
+							"border": new javax.swing.border.EmptyBorder( 5, 5, 5, 5 )
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "Center"
@@ -307,7 +354,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 5, 10 )
-			"size": new java.awt.Dimension( 725, 505 )
+			"size": new java.awt.Dimension( 595, 445 )
 		} )
 	}
 }

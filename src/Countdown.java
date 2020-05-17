@@ -65,6 +65,9 @@ class TimerTask extends Thread {
     public void run() {
         while (this.seconds > 0) {
             this.seconds--;
+            if (this.seconds == 5) {
+                clock.sendToast("倒计时即将结束！", Toast.msg);
+            }
             clock.updateCountdown(seconds);
             try {
                 Thread.sleep(1000);
