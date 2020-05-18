@@ -68,51 +68,51 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JComboBox" ) {
 								name: "selectZone"
 								"model": new javax.swing.DefaultComboBoxModel {
-									selectedItem: "中国-北京(GMT +8)"
-									addElement( "中国-北京(GMT +8)" )
-									addElement( "中国-香港(GMT +8)" )
-									addElement( "英国-伦敦(GMT +0)" )
-									addElement( "冰岛-雷克雅未克(GMT +0)" )
-									addElement( "爱尔兰-都柏林(GMT +0)" )
-									addElement( "阿尔及利亚-阿尔及尔(GMT +0)" )
-									addElement( "英国-格林威治(GMT +0)" )
-									addElement( "挪威-奥斯陆(GMT +1)" )
-									addElement( "德国-柏林(GMT +1)" )
-									addElement( "奥地利-维也纳(GMT +1)" )
-									addElement( "意大利-罗马(GMT +1)" )
-									addElement( "突尼斯(GMT +1)" )
-									addElement( "土耳其-安卡拉(GMT +2)" )
-									addElement( "埃及-开罗(GMT +2)" )
-									addElement( "俄罗斯-莫斯科(GMT +3)" )
-									addElement( "伊拉克-巴格达(GMT +3)" )
-									addElement( "以色列-耶路撒冷(GMT +3)" )
-									addElement( "巴勒斯坦-耶路撒冷(GMT +3)" )
-									addElement( "哈萨克斯坦-阿斯塔纳(GMT +5)" )
-									addElement( "乌兹别克斯坦-塔什干(GMT +5)" )
-									addElement( "印度-新德里(GMT +5)" )
-									addElement( "巴基斯坦-伊斯兰堡(GMT +5)" )
-									addElement( "巴基斯坦-卡拉棋(GMT +5)" )
-									addElement( "孟加拉国-达卡(GMT +6)" )
-									addElement( "越南-河内(GMT +7)" )
-									addElement( "老挝-万象(GMT +7)" )
-									addElement( "泰国-曼谷(GMT +7)" )
-									addElement( "柬埔寨-金边(GMT +7)" )
-									addElement( "新加坡(GMT +7)" )
-									addElement( "朝鲜-平壤(GMT +9)" )
-									addElement( "韩国-首尔(GMT +9)" )
-									addElement( "日本-东京(GMT +9)" )
-									addElement( "澳大利亚-悉尼(GMT +10)" )
-									addElement( "澳大利亚-堪培拉(GMT +10)" )
-									addElement( "新西兰-惠灵顿(GMT +12)" )
-									addElement( "美国-檀香山(GMT -10)" )
-									addElement( "美国-华盛顿(GMT -5)" )
-									addElement( "美国-纽约(GMT -5)" )
-									addElement( "秘鲁-利马(GMT -5)" )
-									addElement( "厄瓜多尔-基多(GMT -5)" )
-									addElement( "智利-圣地亚哥(GMT -5)" )
-									addElement( "巴西-巴西利亚(GMT -3)" )
-									addElement( "新喀里多尼亚-努阿美(GMT +11)" )
-									addElement( "格鲁吉亚-第比利斯(GMT +4)" )
+									selectedItem: "中国-北京(GMT+8:00)"
+									addElement( "中国-北京(GMT+8:00)" )
+									addElement( "中国-香港(GMT+8:00)" )
+									addElement( "英国-伦敦(GMT+0:00)" )
+									addElement( "冰岛-雷克雅未克(GMT+0:00)" )
+									addElement( "爱尔兰-都柏林(GMT+0:00)" )
+									addElement( "阿尔及利亚-阿尔及尔(GMT+0:00)" )
+									addElement( "英国-格林威治(GMT+0:00)" )
+									addElement( "挪威-奥斯陆(GMT+1:00)" )
+									addElement( "德国-柏林(GMT+1:00)" )
+									addElement( "奥地利-维也纳(GMT+1:00)" )
+									addElement( "意大利-罗马(GMT+1:00)" )
+									addElement( "突尼斯(GMT+1:00)" )
+									addElement( "土耳其-安卡拉(GMT+2:00)" )
+									addElement( "埃及-开罗(GMT+2:00)" )
+									addElement( "俄罗斯-莫斯科(GMT+3:00)" )
+									addElement( "伊拉克-巴格达(GMT+3:00)" )
+									addElement( "以色列-耶路撒冷(GMT+3:00)" )
+									addElement( "巴勒斯坦-耶路撒冷(GMT+3:00)" )
+									addElement( "哈萨克斯坦-阿斯塔纳(GMT+5:00)" )
+									addElement( "乌兹别克斯坦-塔什干(GMT+5:00)" )
+									addElement( "印度-新德里(GMT+5:00)" )
+									addElement( "巴基斯坦-伊斯兰堡(GMT+5:00)" )
+									addElement( "巴基斯坦-卡拉棋(GMT+5:00)" )
+									addElement( "孟加拉国-达卡(GMT+6:00)" )
+									addElement( "越南-河内(GMT+7:00)" )
+									addElement( "老挝-万象(GMT+7:00)" )
+									addElement( "泰国-曼谷(GMT+7:00)" )
+									addElement( "柬埔寨-金边(GMT+7:00)" )
+									addElement( "新加坡(GMT+7:00)" )
+									addElement( "朝鲜-平壤(GMT+9:00)" )
+									addElement( "韩国-首尔(GMT+9:00)" )
+									addElement( "日本-东京(GMT+9:00)" )
+									addElement( "澳大利亚-悉尼(GMT+10:00)" )
+									addElement( "澳大利亚-堪培拉(GMT+10:00)" )
+									addElement( "新西兰-惠灵顿(GMT+12:00)" )
+									addElement( "美国-檀香山(GMT-10:00)" )
+									addElement( "美国-华盛顿(GMT-5:00)" )
+									addElement( "美国-纽约(GMT-5:00)" )
+									addElement( "秘鲁-利马(GMT-5:00)" )
+									addElement( "厄瓜多尔-基多(GMT-5:00)" )
+									addElement( "智利-圣地亚哥(GMT-5:00)" )
+									addElement( "巴西-巴西利亚(GMT-3:00)" )
+									addElement( "新喀里多尼亚-努阿美(GMT+11:00)" )
+									addElement( "格鲁吉亚-第比利斯(GMT+4:00)" )
 								}
 								addEvent( new FormEvent( "java.awt.event.ItemListener", "itemStateChanged", "selectZoneItemStateChanged", true ) )
 							} )
@@ -151,13 +151,13 @@ new FormModel {
 								name: "alarmSwitch"
 								"text": "闹钟开关"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "alarmSwitchMouseClicked", true ) )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "alarmSwitchActionPerformed", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JCheckBox" ) {
 								name: "alarmVoice"
 								"text": "声音开关"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "alarmVoiceMouseClicked", true ) )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "alarmVoiceActionPerformed", true ) )
 							} )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 							"gridx": 2
@@ -210,7 +210,7 @@ new FormModel {
 								name: "AddAlarmButton"
 								"text": "设置闹钟时间"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-								addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "AddAlarmButtonMouseClicked", true ) )
+								addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "AddAlarmButtonActionPerformed", true ) )
 							} )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 							"gridx": 2
@@ -233,19 +233,19 @@ new FormModel {
 							name: "start"
 							"text": "开始"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "startMouseClicked", true ) )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "startActionPerformed", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "hangOn"
 							"text": "暂停"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "hangOnMouseClicked", true ) )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "hangOnActionPerformed", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "reset"
 							"text": "复位"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 5, false )
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "resetMouseClicked", true ) )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "resetActionPerformed", true ) )
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "South"
@@ -290,14 +290,13 @@ new FormModel {
 							name: "countdownVoice"
 							"text": "打开声音提醒"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "countdownVoiceMouseClicked", true ) )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "countdownVoiceActionPerformed", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JButton" ) {
 							name: "addCountdownButton"
 							"text": "设置时长"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "AddCountdownButtonMouseClicked", true ) )
-							addEvent( new FormEvent( "java.awt.event.MouseListener", "mouseClicked", "AddCountdownButtonMouseClicked", true ) )
+							addEvent( new FormEvent( "java.awt.event.ActionListener", "actionPerformed", "addCountdownButtonActionPerformed", true ) )
 						} )
 					}, new FormLayoutConstraints( class java.lang.String ) {
 						"value": "North"

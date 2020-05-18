@@ -4,7 +4,6 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.event.*;
-import javax.swing.table.*;
 /*
  * Created by JFormDesigner on Tue May 12 12:54:18 CST 2020
  */
@@ -20,6 +19,11 @@ public class Clock extends JFrame {
     private boolean alarmRemainderSwitch = false;
     private boolean alarmVoiceSwitch = false;
     private boolean countdownVoiceSwitch = false;
+    public Toast msgToast;
+    private MusicPlayer musicPlayer;
+    private Calendar calendar;
+    private String zoneGMT = "GMT+8:00";
+    private TimeZone timeZone = TimeZone.getDefault();
     //--------------变量区end--------------//
 
 
@@ -37,7 +41,52 @@ public class Clock extends JFrame {
         //打开当前时间更新线程
         Thread thread = new Thread(new UpdateTime(currentTime));
         thread.start();
-        
+
+        //初始化音乐播放器
+        musicPlayer = new MusicPlayer();
+
+    }
+
+    /**
+     * @author shiyu
+     */
+    class UpdateTime implements Runnable {
+        private JLabel jLabel;
+        HashMap<Integer, String> week = new HashMap<>();
+
+        public UpdateTime(JLabel jlabel) {
+            this.jLabel = jlabel;
+
+            //从数字转换成星期
+            week.put(1, "日");
+            week.put(2, "一");
+            week.put(3, "二");
+            week.put(4, "三");
+            week.put(5, "四");
+            week.put(6, "五");
+            week.put(7, "六");
+        }
+        @Override
+        public void run() {
+            while(true) {
+                calendar = Calendar.getInstance(timeZone);
+                String currentTime = "<html><p style=\"text-align:center\">"
+                        + calendar.get(Calendar.YEAR) + "年"
+                        + (calendar.get(Calendar.MONTH) + 1) + "月"
+                        + calendar.get(Calendar.DATE) + "日" + "<br>"
+                        + "星期" + week.get(calendar.get(Calendar.DAY_OF_WEEK)) + "<br>"
+                        + String.format("%2d", calendar.get(Calendar.HOUR_OF_DAY)) + ":"
+                        + String.format("%02d", calendar.get(Calendar.MINUTE)) + ":"
+                        + String.format("%02d", calendar.get(Calendar.SECOND))
+                        + "</p></html>";
+                this.jLabel.setText(currentTime);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
@@ -45,7 +94,6 @@ public class Clock extends JFrame {
      * @param e
      */
     private void hoursStateChanged(ChangeEvent e) {
-        // TODO add your code here
         restrictMaxAndMin(hours, 23);
     }
 
@@ -54,7 +102,6 @@ public class Clock extends JFrame {
      * @param e
      */
     private void minutesStateChanged(ChangeEvent e) {
-        // TODO add your code here
         restrictMaxAndMin(minutes, 59);
     }
 
@@ -63,7 +110,6 @@ public class Clock extends JFrame {
      * @param e
      */
     private void secondsStateChanged(ChangeEvent e) {
-        // TODO add your code here
         restrictMaxAndMin(seconds, 59);
     }
 
@@ -72,43 +118,46 @@ public class Clock extends JFrame {
      * @param e
      */
     private void selectZoneItemStateChanged(ItemEvent e) {
-        // TODO add your code here
-        System.out.println(e.getItem());
+        String zone = e.getItem().toString().split("\\(")[1];
+        zone = zone.split("\\)")[0];
+        if (zoneGMT.equals(zone)) {
+            return;
+        }
+        else {
+            timeZone=TimeZone.getTimeZone(zone);
+        }
+
     }
 
-    /**
-     *
-     * @param e
-     */
-    private void AddAlarmButtonMouseClicked(MouseEvent e) {
-        // TODO add your code here
-    }
-
-    private void alarmSwitchMouseClicked(MouseEvent e) {
+    private void alarmSwitchActionPerformed(ActionEvent e) {
         alarmRemainderSwitch = alarmSwitch.isSelected();
         if (alarmRemainderSwitch) {
-            sendToast("闹钟已打开！", Toast.msg);
+            msgToast.setMessage("闹钟已打开！");
         }
         else {
-            sendToast("闹钟已关闭！", Toast.msg);
+            msgToast.setMessage("闹钟已关闭！");
         }
     }
 
-    private void alarmVoiceMouseClicked(MouseEvent e) {
+    private void alarmVoiceActionPerformed(ActionEvent e) {
         alarmVoiceSwitch = alarmVoice.isSelected();
         if (alarmVoiceSwitch) {
-            sendToast("闹钟声音已打开！", Toast.msg);
+            msgToast.setMessage("闹钟声音已打开！");
         }
         else {
-            sendToast("闹钟声音已关闭！", Toast.msg);
+            msgToast.setMessage("闹钟声音已关闭！");
         }
     }
 
+    private void AddAlarmButtonActionPerformed(ActionEvent e) {
+        // TODO add your code here
+        System.out.println("aaa");
+    }
     //--------------时钟区end--------------//
 
 
     //--------------倒计时部分start--------------//
-    private void AddCountdownButtonMouseClicked(MouseEvent e) {
+    private void addCountdownButtonActionPerformed(ActionEvent e) {
         int hours = (int) hours2.getValue();
         int minutes = (int) minutes2.getValue();
         int seconds = (int) seconds2.getValue();
@@ -119,10 +168,10 @@ public class Clock extends JFrame {
 
         start.setEnabled(true);
 
-        sendToast("时长已设置！", Toast.msg);
+        msgToast.setMessage("时长已设置！");
     }
 
-    private void startMouseClicked(MouseEvent e) {
+    private void startActionPerformed(ActionEvent e) {
         countdownTask.start();
 
         addCountdownButton.setEnabled(false);
@@ -130,10 +179,10 @@ public class Clock extends JFrame {
         hangOn.setEnabled(true);
         reset.setEnabled(false);
 
-        sendToast("倒计时开始！", Toast.msg);
+        msgToast.setMessage("倒计时开始！");
     }
 
-    private void hangOnMouseClicked(MouseEvent e) {
+    private void hangOnActionPerformed(ActionEvent e) {
         countdownTask.hangOn();
 
         addCountdownButton.setEnabled(true);
@@ -141,13 +190,13 @@ public class Clock extends JFrame {
         reset.setEnabled(true);
         hangOn.setEnabled(false);
 
-        sendToast("倒计时暂停！", Toast.msg);
+        msgToast.setMessage("倒计时暂停！");
     }
 
-    private void resetMouseClicked(MouseEvent e) {
+    private void resetActionPerformed(ActionEvent e) {
         countdownTask.reset(countdownTime);
 
-        sendToast("倒计时复位！", Toast.msg);
+        msgToast.setMessage("倒计时复位！");
     }
 
     /**
@@ -168,12 +217,17 @@ public class Clock extends JFrame {
         hangOn.setEnabled(false);
         reset.setEnabled(false);
 
+        //播放音乐
+        if (countdownVoiceSwitch)
+            musicPlayer.play();
+
         //弹窗提示
         JOptionPane.showMessageDialog(this, "倒计时时间到！", "倒计时提醒",
                 JOptionPane.INFORMATION_MESSAGE);
 
-        //播放音乐
-        
+        //停止播放
+        if (countdownVoiceSwitch)
+            musicPlayer.stop();
     }
 
     /**
@@ -219,13 +273,13 @@ public class Clock extends JFrame {
         }
     }
 
-    private void countdownVoiceMouseClicked(MouseEvent e) {
+    private void countdownVoiceActionPerformed(ActionEvent e) {
         countdownVoiceSwitch = countdownVoice.isSelected();
         if (countdownVoiceSwitch) {
-            sendToast("倒计时提醒声音已打开！", Toast.msg);
+            msgToast.setMessage("倒计时提醒声音已打开！");
         }
         else {
-            sendToast("倒计时提醒声音已关闭！", Toast.msg);
+            msgToast.setMessage("倒计时提醒声音已关闭！");
         }
     }
     //--------------倒计时部分end--------------//
@@ -247,9 +301,8 @@ public class Clock extends JFrame {
         }
     }
 
-    public void sendToast(String msg, int type) {
-        Toast toast = new Toast(message, msg, 1000, type);
-        toast.start();
+    public JLabel getMessage() {
+        return message;
     }
     //--------------通用部分end--------------//
 
@@ -319,14 +372,13 @@ public class Clock extends JFrame {
         //======== toast ========
         {
             toast.setBorder(new TitledBorder("\u6d88\u606f\u63d0\u793a"));
-            toast.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(
-            new javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn"
-            ,javax.swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM
-            ,new java.awt.Font("Dia\u006cog",java.awt.Font.BOLD,12)
-            ,java.awt.Color.red),toast. getBorder()));toast. addPropertyChangeListener(
-            new java.beans.PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e
-            ){if("\u0062ord\u0065r".equals(e.getPropertyName()))throw new RuntimeException()
-            ;}});
+            toast.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing
+            . border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder
+            . CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .
+            awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,toast. getBorder () ) )
+            ; toast. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
+            ) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } )
+            ;
             toast.setLayout(new BorderLayout(5, 5));
 
             //---- message ----
@@ -386,50 +438,50 @@ public class Clock extends JFrame {
 
                         //---- selectZone ----
                         selectZone.setModel(new DefaultComboBoxModel<>(new String[] {
-                            "\u4e2d\u56fd-\u5317\u4eac(GMT +8)",
-                            "\u4e2d\u56fd-\u9999\u6e2f(GMT +8)",
-                            "\u82f1\u56fd-\u4f26\u6566(GMT +0)",
-                            "\u51b0\u5c9b-\u96f7\u514b\u96c5\u672a\u514b(GMT +0)",
-                            "\u7231\u5c14\u5170-\u90fd\u67cf\u6797(GMT +0)",
-                            "\u963f\u5c14\u53ca\u5229\u4e9a-\u963f\u5c14\u53ca\u5c14(GMT +0)",
-                            "\u82f1\u56fd-\u683c\u6797\u5a01\u6cbb(GMT +0)",
-                            "\u632a\u5a01-\u5965\u65af\u9646(GMT +1)",
-                            "\u5fb7\u56fd-\u67cf\u6797(GMT +1)",
-                            "\u5965\u5730\u5229-\u7ef4\u4e5f\u7eb3(GMT +1)",
-                            "\u610f\u5927\u5229-\u7f57\u9a6c(GMT +1)",
-                            "\u7a81\u5c3c\u65af(GMT +1)",
-                            "\u571f\u8033\u5176-\u5b89\u5361\u62c9(GMT +2)",
-                            "\u57c3\u53ca-\u5f00\u7f57(GMT +2)",
-                            "\u4fc4\u7f57\u65af-\u83ab\u65af\u79d1(GMT +3)",
-                            "\u4f0a\u62c9\u514b-\u5df4\u683c\u8fbe(GMT +3)",
-                            "\u4ee5\u8272\u5217-\u8036\u8def\u6492\u51b7(GMT +3)",
-                            "\u5df4\u52d2\u65af\u5766-\u8036\u8def\u6492\u51b7(GMT +3)",
-                            "\u54c8\u8428\u514b\u65af\u5766-\u963f\u65af\u5854\u7eb3(GMT +5)",
-                            "\u4e4c\u5179\u522b\u514b\u65af\u5766-\u5854\u4ec0\u5e72(GMT +5)",
-                            "\u5370\u5ea6-\u65b0\u5fb7\u91cc(GMT +5)",
-                            "\u5df4\u57fa\u65af\u5766-\u4f0a\u65af\u5170\u5821(GMT +5)",
-                            "\u5df4\u57fa\u65af\u5766-\u5361\u62c9\u68cb(GMT +5)",
-                            "\u5b5f\u52a0\u62c9\u56fd-\u8fbe\u5361(GMT +6)",
-                            "\u8d8a\u5357-\u6cb3\u5185(GMT +7)",
-                            "\u8001\u631d-\u4e07\u8c61(GMT +7)",
-                            "\u6cf0\u56fd-\u66fc\u8c37(GMT +7)",
-                            "\u67ec\u57d4\u5be8-\u91d1\u8fb9(GMT +7)",
-                            "\u65b0\u52a0\u5761(GMT +7)",
-                            "\u671d\u9c9c-\u5e73\u58e4(GMT +9)",
-                            "\u97e9\u56fd-\u9996\u5c14(GMT +9)",
-                            "\u65e5\u672c-\u4e1c\u4eac(GMT +9)",
-                            "\u6fb3\u5927\u5229\u4e9a-\u6089\u5c3c(GMT +10)",
-                            "\u6fb3\u5927\u5229\u4e9a-\u582a\u57f9\u62c9(GMT +10)",
-                            "\u65b0\u897f\u5170-\u60e0\u7075\u987f(GMT +12)",
-                            "\u7f8e\u56fd-\u6a80\u9999\u5c71(GMT -10)",
-                            "\u7f8e\u56fd-\u534e\u76db\u987f(GMT -5)",
-                            "\u7f8e\u56fd-\u7ebd\u7ea6(GMT -5)",
-                            "\u79d8\u9c81-\u5229\u9a6c(GMT -5)",
-                            "\u5384\u74dc\u591a\u5c14-\u57fa\u591a(GMT -5)",
-                            "\u667a\u5229-\u5723\u5730\u4e9a\u54e5(GMT -5)",
-                            "\u5df4\u897f-\u5df4\u897f\u5229\u4e9a(GMT -3)",
-                            "\u65b0\u5580\u91cc\u591a\u5c3c\u4e9a-\u52aa\u963f\u7f8e(GMT +11)",
-                            "\u683c\u9c81\u5409\u4e9a-\u7b2c\u6bd4\u5229\u65af(GMT +4)"
+                            "\u4e2d\u56fd-\u5317\u4eac(GMT+8:00)",
+                            "\u4e2d\u56fd-\u9999\u6e2f(GMT+8:00)",
+                            "\u82f1\u56fd-\u4f26\u6566(GMT+0:00)",
+                            "\u51b0\u5c9b-\u96f7\u514b\u96c5\u672a\u514b(GMT+0:00)",
+                            "\u7231\u5c14\u5170-\u90fd\u67cf\u6797(GMT+0:00)",
+                            "\u963f\u5c14\u53ca\u5229\u4e9a-\u963f\u5c14\u53ca\u5c14(GMT+0:00)",
+                            "\u82f1\u56fd-\u683c\u6797\u5a01\u6cbb(GMT+0:00)",
+                            "\u632a\u5a01-\u5965\u65af\u9646(GMT+1:00)",
+                            "\u5fb7\u56fd-\u67cf\u6797(GMT+1:00)",
+                            "\u5965\u5730\u5229-\u7ef4\u4e5f\u7eb3(GMT+1:00)",
+                            "\u610f\u5927\u5229-\u7f57\u9a6c(GMT+1:00)",
+                            "\u7a81\u5c3c\u65af(GMT+1:00)",
+                            "\u571f\u8033\u5176-\u5b89\u5361\u62c9(GMT+2:00)",
+                            "\u57c3\u53ca-\u5f00\u7f57(GMT+2:00)",
+                            "\u4fc4\u7f57\u65af-\u83ab\u65af\u79d1(GMT+3:00)",
+                            "\u4f0a\u62c9\u514b-\u5df4\u683c\u8fbe(GMT+3:00)",
+                            "\u4ee5\u8272\u5217-\u8036\u8def\u6492\u51b7(GMT+3:00)",
+                            "\u5df4\u52d2\u65af\u5766-\u8036\u8def\u6492\u51b7(GMT+3:00)",
+                            "\u54c8\u8428\u514b\u65af\u5766-\u963f\u65af\u5854\u7eb3(GMT+5:00)",
+                            "\u4e4c\u5179\u522b\u514b\u65af\u5766-\u5854\u4ec0\u5e72(GMT+5:00)",
+                            "\u5370\u5ea6-\u65b0\u5fb7\u91cc(GMT+5:00)",
+                            "\u5df4\u57fa\u65af\u5766-\u4f0a\u65af\u5170\u5821(GMT+5:00)",
+                            "\u5df4\u57fa\u65af\u5766-\u5361\u62c9\u68cb(GMT+5:00)",
+                            "\u5b5f\u52a0\u62c9\u56fd-\u8fbe\u5361(GMT+6:00)",
+                            "\u8d8a\u5357-\u6cb3\u5185(GMT+7:00)",
+                            "\u8001\u631d-\u4e07\u8c61(GMT+7:00)",
+                            "\u6cf0\u56fd-\u66fc\u8c37(GMT+7:00)",
+                            "\u67ec\u57d4\u5be8-\u91d1\u8fb9(GMT+7:00)",
+                            "\u65b0\u52a0\u5761(GMT+7:00)",
+                            "\u671d\u9c9c-\u5e73\u58e4(GMT+9:00)",
+                            "\u97e9\u56fd-\u9996\u5c14(GMT+9:00)",
+                            "\u65e5\u672c-\u4e1c\u4eac(GMT+9:00)",
+                            "\u6fb3\u5927\u5229\u4e9a-\u6089\u5c3c(GMT+10:00)",
+                            "\u6fb3\u5927\u5229\u4e9a-\u582a\u57f9\u62c9(GMT+10:00)",
+                            "\u65b0\u897f\u5170-\u60e0\u7075\u987f(GMT+12:00)",
+                            "\u7f8e\u56fd-\u6a80\u9999\u5c71(GMT-10:00)",
+                            "\u7f8e\u56fd-\u534e\u76db\u987f(GMT-5:00)",
+                            "\u7f8e\u56fd-\u7ebd\u7ea6(GMT-5:00)",
+                            "\u79d8\u9c81-\u5229\u9a6c(GMT-5:00)",
+                            "\u5384\u74dc\u591a\u5c14-\u57fa\u591a(GMT-5:00)",
+                            "\u667a\u5229-\u5723\u5730\u4e9a\u54e5(GMT-5:00)",
+                            "\u5df4\u897f-\u5df4\u897f\u5229\u4e9a(GMT-3:00)",
+                            "\u65b0\u5580\u91cc\u591a\u5c3c\u4e9a-\u52aa\u963f\u7f8e(GMT+11:00)",
+                            "\u683c\u9c81\u5409\u4e9a-\u7b2c\u6bd4\u5229\u65af(GMT+4:00)"
                         }));
                         selectZone.addItemListener(e -> selectZoneItemStateChanged(e));
                         panel6.add(selectZone);
@@ -472,23 +524,13 @@ public class Clock extends JFrame {
                         //---- alarmSwitch ----
                         alarmSwitch.setText("\u95f9\u949f\u5f00\u5173");
                         alarmSwitch.setFont(alarmSwitch.getFont().deriveFont(alarmSwitch.getFont().getSize() + 3f));
-                        alarmSwitch.addMouseListener(new MouseAdapter() {
-                            @Override
-                            public void mouseClicked(MouseEvent e) {
-                                alarmSwitchMouseClicked(e);
-                            }
-                        });
+                        alarmSwitch.addActionListener(e -> alarmSwitchActionPerformed(e));
                         panel3.add(alarmSwitch);
 
                         //---- alarmVoice ----
                         alarmVoice.setText("\u58f0\u97f3\u5f00\u5173");
                         alarmVoice.setFont(alarmVoice.getFont().deriveFont(alarmVoice.getFont().getSize() + 3f));
-                        alarmVoice.addMouseListener(new MouseAdapter() {
-                            @Override
-                            public void mouseClicked(MouseEvent e) {
-                                alarmVoiceMouseClicked(e);
-                            }
-                        });
+                        alarmVoice.addActionListener(e -> alarmVoiceActionPerformed(e));
                         panel3.add(alarmVoice);
                     }
                     panel5.add(panel3, new GridBagConstraints(2, 2, 1, 1, 0.0, 0.0,
@@ -544,12 +586,7 @@ public class Clock extends JFrame {
                         //---- AddAlarmButton ----
                         AddAlarmButton.setText("\u8bbe\u7f6e\u95f9\u949f\u65f6\u95f4");
                         AddAlarmButton.setFont(AddAlarmButton.getFont().deriveFont(AddAlarmButton.getFont().getSize() + 3f));
-                        AddAlarmButton.addMouseListener(new MouseAdapter() {
-                            @Override
-                            public void mouseClicked(MouseEvent e) {
-                                AddAlarmButtonMouseClicked(e);
-                            }
-                        });
+                        AddAlarmButton.addActionListener(e -> AddAlarmButtonActionPerformed(e));
                         panel8.add(AddAlarmButton);
                     }
                     panel5.add(panel8, new GridBagConstraints(2, 3, 1, 1, 0.0, 0.0,
@@ -573,34 +610,19 @@ public class Clock extends JFrame {
                     //---- start ----
                     start.setText("\u5f00\u59cb");
                     start.setFont(start.getFont().deriveFont(start.getFont().getSize() + 5f));
-                    start.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            startMouseClicked(e);
-                        }
-                    });
+                    start.addActionListener(e -> startActionPerformed(e));
                     panel15.add(start);
 
                     //---- hangOn ----
                     hangOn.setText("\u6682\u505c");
                     hangOn.setFont(hangOn.getFont().deriveFont(hangOn.getFont().getSize() + 5f));
-                    hangOn.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            hangOnMouseClicked(e);
-                        }
-                    });
+                    hangOn.addActionListener(e -> hangOnActionPerformed(e));
                     panel15.add(hangOn);
 
                     //---- reset ----
                     reset.setText("\u590d\u4f4d");
                     reset.setFont(reset.getFont().deriveFont(reset.getFont().getSize() + 5f));
-                    reset.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            resetMouseClicked(e);
-                        }
-                    });
+                    reset.addActionListener(e -> resetActionPerformed(e));
                     panel15.add(reset);
                 }
                 Countdown.add(panel15, BorderLayout.SOUTH);
@@ -646,24 +668,13 @@ public class Clock extends JFrame {
                     //---- countdownVoice ----
                     countdownVoice.setText("\u6253\u5f00\u58f0\u97f3\u63d0\u9192");
                     countdownVoice.setFont(countdownVoice.getFont().deriveFont(countdownVoice.getFont().getSize() + 3f));
-                    countdownVoice.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            countdownVoiceMouseClicked(e);
-                        }
-                    });
+                    countdownVoice.addActionListener(e -> countdownVoiceActionPerformed(e));
                     AddCountdownPanel.add(countdownVoice);
 
                     //---- addCountdownButton ----
                     addCountdownButton.setText("\u8bbe\u7f6e\u65f6\u957f");
                     addCountdownButton.setFont(addCountdownButton.getFont().deriveFont(addCountdownButton.getFont().getSize() + 3f));
-                    addCountdownButton.addMouseListener(new MouseAdapter() {
-                        @Override
-                        public void mouseClicked(MouseEvent e) {
-                            AddCountdownButtonMouseClicked(e);
-                            AddCountdownButtonMouseClicked(e);
-                        }
-                    });
+                    addCountdownButton.addActionListener(e -> addCountdownButtonActionPerformed(e));
                     AddCountdownPanel.add(addCountdownButton);
                 }
                 Countdown.add(AddCountdownPanel, BorderLayout.NORTH);
@@ -766,44 +777,4 @@ public class Clock extends JFrame {
     private JLabel label8;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
     //--------------自动生成部分end--------------//
-}
-
-
-class UpdateTime implements Runnable {
-    private JLabel jLabel;
-    HashMap<Integer, String> week = new HashMap<>();
-
-    public UpdateTime(JLabel jlabel) {
-        this.jLabel = jlabel;
-
-        //从数字转换成星期
-        week.put(1, "日");
-        week.put(2, "一");
-        week.put(3, "二");
-        week.put(4, "三");
-        week.put(5, "四");
-        week.put(6, "五");
-        week.put(7, "六");
-    }
-    @Override
-    public void run() {
-        while(true) {
-            Calendar calendar = Calendar.getInstance();
-            String currentTime = "<html><p style=\"text-align:center\">"
-                    + calendar.get(Calendar.YEAR) + "年"
-                    + (calendar.get(Calendar.MONTH) + 1) + "月"
-                    + calendar.get(Calendar.DATE) + "日" + "<br>"
-                    + "星期" + week.get(calendar.get(Calendar.DAY_OF_WEEK)) + "<br>"
-                    + String.format("%2d", calendar.get(Calendar.HOUR_OF_DAY)) + ":"
-                    + String.format("%02d", calendar.get(Calendar.MINUTE)) + ":"
-                    + String.format("%02d", calendar.get(Calendar.SECOND))
-                    + "</p></html>";
-            this.jLabel.setText(currentTime);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

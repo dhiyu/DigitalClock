@@ -24,6 +24,8 @@ public class Toast extends JWindow {
     public static final int error = 2;// 错误提示 粉红色背景色  
     private Color background;
     private Color foreground;
+    private Component parent;
+    private Timer timer;
 
     /**
      *
@@ -48,11 +50,12 @@ public class Toast extends JWindow {
      *            提示类型 msg:黑色背景色 success :浅蓝色背景色  error: 粉红色背景色 
      */
     public Toast(Component parent, String message, int period, int type) {
+        this.parent = parent;
         this.message = message;
         this.period = period;
         font = new Font("宋体", Font.PLAIN, 14);
         setSize(getStringSize(font, true, message));
-        // 相对JFrame的位置  
+        // 相对JFrame的位置------修改！！！针对于parent的位置
         setLocationRelativeTo(parent);
         installTheme(type);
     }
@@ -76,16 +79,20 @@ public class Toast extends JWindow {
     }
 
     /**
-     * 启动提示 
+     * 启动提示
+     * 2020/5/18
+     * 这个地方原作者没有停止计时器
+     * 应该在执行完毕之后停止该计时器
      */
 
     public void start() {
         this.setVisible(true);
-        Timer timer = new Timer();
+        timer = new Timer();
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
                 setVisible(false);
+                timer.cancel();
             }
         }, period);
     }
@@ -98,11 +105,14 @@ public class Toast extends JWindow {
         this.message = message;
         Dimension size = getStringSize(font, true, message);
         setSize(size);
+        setLocationRelativeTo(parent);
         revalidate();
         repaint(0, 0, size.width, size.height);
-        if (!isVisible()) {
-            start();
+        //新增一秒内重复点击时延长框的显示
+        if (isVisible()) {
+            timer.cancel();
         }
+        start();
     }
 
     /*
@@ -122,7 +132,6 @@ public class Toast extends JWindow {
                 background = new Color(242, 222, 222);
                 foreground = new Color(221, 17, 68);
                 break;
-
             default:
                 background = new Color(0x515151);
                 foreground = Color.WHITE;

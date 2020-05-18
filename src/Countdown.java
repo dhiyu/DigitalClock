@@ -4,7 +4,7 @@
 public class Countdown{
     private int seconds;
     final Clock clock;
-    TimerTask timerTask;
+    CountdownTask countdownTask;
 
     public Countdown(int seconds, Clock clock) {
         this.seconds = seconds;
@@ -15,34 +15,34 @@ public class Countdown{
      *
      */
     public void start() {
-            timerTask = new TimerTask(this.seconds, clock);
-            timerTask.start();
+            countdownTask = new CountdownTask(this.seconds, clock);
+            countdownTask.start();
     }
 
     /**
      *
      */
     public void hangOn() {
-        timerTask.interrupt();
-        this.seconds = timerTask.getTime();
+        countdownTask.interrupt();
+        this.seconds = countdownTask.getTime();
     }
 
     /**
      *
      */
     public void reset(int seconds) {
-        timerTask.interrupt();
+        countdownTask.interrupt();
         this.seconds = seconds;
         clock.updateCountdown(seconds);
     }
 
 }
 
-class TimerTask extends Thread {
+class CountdownTask extends Thread {
     private int seconds;
     final Clock clock;
 
-    public TimerTask(int seconds, Clock clock) {
+    public CountdownTask(int seconds, Clock clock) {
         this.seconds = seconds;
         this.clock = clock;
     }
@@ -66,7 +66,7 @@ class TimerTask extends Thread {
         while (this.seconds > 0) {
             this.seconds--;
             if (this.seconds == 5) {
-                clock.sendToast("倒计时即将结束！", Toast.msg);
+                clock.msgToast.setMessage("倒计时即将结束！");
             }
             clock.updateCountdown(seconds);
             try {
