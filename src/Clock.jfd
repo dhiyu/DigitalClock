@@ -177,6 +177,7 @@ new FormModel {
 								name: "hours"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
 								"model": new javax.swing.SpinnerNumberModel
+								"preferredSize": new java.awt.Dimension( 60, 31 )
 								addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "hoursStateChanged", true ) )
 								addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "hoursStateChanged", true ) )
 							} )
@@ -189,6 +190,7 @@ new FormModel {
 								name: "minutes"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
 								"model": new javax.swing.SpinnerNumberModel
+								"preferredSize": new java.awt.Dimension( 60, 31 )
 								addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "minutesStateChanged", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
@@ -199,6 +201,7 @@ new FormModel {
 							add( new FormComponent( "javax.swing.JSpinner" ) {
 								name: "seconds"
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+								"preferredSize": new java.awt.Dimension( 60, 31 )
 								addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "secondsStateChanged", true ) )
 							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
@@ -258,7 +261,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JSpinner" ) {
 							name: "hours2"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
-							"preferredSize": new java.awt.Dimension( 88, 31 )
+							"preferredSize": new java.awt.Dimension( 60, 31 )
 							addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "hours2StateChanged", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
@@ -269,6 +272,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JSpinner" ) {
 							name: "minutes2"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+							"preferredSize": new java.awt.Dimension( 60, 31 )
 							addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "minutes2StateChanged", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
@@ -279,6 +283,7 @@ new FormModel {
 						add( new FormComponent( "javax.swing.JSpinner" ) {
 							name: "seconds2"
 							"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 2, false )
+							"preferredSize": new java.awt.Dimension( 60, 31 )
 							addEvent( new FormEvent( "javax.swing.event.ChangeListener", "stateChanged", "seconds2StateChanged", true ) )
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {

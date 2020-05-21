@@ -58,6 +58,6 @@ public class Alarm {
             public void run() {
                 clock.alarmEnd();
             }
-        }, 5 * 60000);
+        }, 30000);
     }
 }

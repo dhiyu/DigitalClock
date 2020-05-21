@@ -195,8 +195,14 @@ public class Clock extends JFrame {
             musicPlayer.play();
 
         //弹窗提示
-        JOptionPane.showMessageDialog(this, "闹钟时间到！", "闹钟",
-                JOptionPane.INFORMATION_MESSAGE);
+        Object[] options = {"停止", "延迟再响"};
+        int selected_value;
+        selected_value = JOptionPane.showOptionDialog(this, "闹钟时间到！", "闹钟",
+                JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, options, options[0]);
+        if (selected_value == 1) {
+            System.out.println("延迟再响");
+            alarm.delayAlarm();
+        }
 
         //停止播放
         if (alarmVoiceSwitch)
@@ -423,13 +429,13 @@ public class Clock extends JFrame {
         //======== toast ========
         {
             toast.setBorder(new TitledBorder("\u6d88\u606f\u63d0\u793a"));
-            toast.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing
-            . border .EmptyBorder ( 0, 0 ,0 , 0) ,  "JFor\u006dDesi\u0067ner \u0045valu\u0061tion" , javax. swing .border . TitledBorder
-            . CENTER ,javax . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .
-            awt . Font. BOLD ,12 ) ,java . awt. Color .red ) ,toast. getBorder () ) )
-            ; toast. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e
-            ) { if( "bord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } )
-            ;
+            toast.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
+            javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax
+            .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
+            .awt.Font("Dialo\u0067",java.awt.Font.BOLD,12),java.awt
+            .Color.red),toast. getBorder()));toast. addPropertyChangeListener(new java.beans.
+            PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("borde\u0072".
+            equals(e.getPropertyName()))throw new RuntimeException();}});
             toast.setLayout(new BorderLayout(5, 5));
 
             //---- message ----
@@ -602,6 +608,7 @@ public class Clock extends JFrame {
                         //---- hours ----
                         hours.setFont(hours.getFont().deriveFont(hours.getFont().getSize() + 2f));
                         hours.setModel(new SpinnerNumberModel(0, null, null, 1));
+                        hours.setPreferredSize(new Dimension(60, 31));
                         hours.addChangeListener(e -> {
 			hoursStateChanged(e);
 			hoursStateChanged(e);
@@ -616,6 +623,7 @@ public class Clock extends JFrame {
                         //---- minutes ----
                         minutes.setFont(minutes.getFont().deriveFont(minutes.getFont().getSize() + 2f));
                         minutes.setModel(new SpinnerNumberModel(0, null, null, 1));
+                        minutes.setPreferredSize(new Dimension(60, 31));
                         minutes.addChangeListener(e -> minutesStateChanged(e));
                         panel8.add(minutes);
 
@@ -626,6 +634,7 @@ public class Clock extends JFrame {
 
                         //---- seconds ----
                         seconds.setFont(seconds.getFont().deriveFont(seconds.getFont().getSize() + 2f));
+                        seconds.setPreferredSize(new Dimension(60, 31));
                         seconds.addChangeListener(e -> secondsStateChanged(e));
                         panel8.add(seconds);
 
@@ -687,7 +696,7 @@ public class Clock extends JFrame {
 
                     //---- hours2 ----
                     hours2.setFont(hours2.getFont().deriveFont(hours2.getFont().getSize() + 2f));
-                    hours2.setPreferredSize(new Dimension(88, 31));
+                    hours2.setPreferredSize(new Dimension(60, 31));
                     hours2.addChangeListener(e -> hours2StateChanged(e));
                     AddCountdownPanel.add(hours2);
 
@@ -698,6 +707,7 @@ public class Clock extends JFrame {
 
                     //---- minutes2 ----
                     minutes2.setFont(minutes2.getFont().deriveFont(minutes2.getFont().getSize() + 2f));
+                    minutes2.setPreferredSize(new Dimension(60, 31));
                     minutes2.addChangeListener(e -> minutes2StateChanged(e));
                     AddCountdownPanel.add(minutes2);
 
@@ -708,6 +718,7 @@ public class Clock extends JFrame {
 
                     //---- seconds2 ----
                     seconds2.setFont(seconds2.getFont().deriveFont(seconds2.getFont().getSize() + 2f));
+                    seconds2.setPreferredSize(new Dimension(60, 31));
                     seconds2.addChangeListener(e -> seconds2StateChanged(e));
                     AddCountdownPanel.add(seconds2);
 
