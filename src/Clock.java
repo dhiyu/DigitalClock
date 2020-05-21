@@ -24,6 +24,10 @@ public class Clock extends JFrame {
     private Calendar calendar;
     private String zoneGMT = "GMT+8:00";
     private TimeZone timeZone = TimeZone.getDefault();
+    private Alarm alarm;
+    private int alarmHour = 0;
+    private int alarmMinute = 0;
+    private int alarmSecond = 0;
     //--------------变量区end--------------//
 
 
@@ -44,6 +48,9 @@ public class Clock extends JFrame {
 
         //初始化音乐播放器
         musicPlayer = new MusicPlayer();
+
+        //初始化闹钟
+        alarm = new Alarm(this, timeZone);
 
     }
 
@@ -125,17 +132,30 @@ public class Clock extends JFrame {
         }
         else {
             timeZone=TimeZone.getTimeZone(zone);
+            zoneGMT = zone;
+            msgToast.setMessage("时区和闹钟已切换到" + zone);
+            if (alarmRemainderSwitch) {
+                //重设闹钟
+                alarm.offAlarm();
+                alarm.setAlarmTime(alarmHour, alarmMinute, alarmSecond, timeZone);
+                alarm.onAlarm();
+            }
+            else {
+                alarm.setAlarmTime(alarmHour, alarmMinute, alarmSecond, timeZone);
+            }
         }
-
     }
 
     private void alarmSwitchActionPerformed(ActionEvent e) {
         alarmRemainderSwitch = alarmSwitch.isSelected();
         if (alarmRemainderSwitch) {
             msgToast.setMessage("闹钟已打开！");
+            System.out.println("按钮闹钟打开");
+            alarm.onAlarm();
         }
         else {
             msgToast.setMessage("闹钟已关闭！");
+            alarm.offAlarm();
         }
     }
 
@@ -150,8 +170,37 @@ public class Clock extends JFrame {
     }
 
     private void AddAlarmButtonActionPerformed(ActionEvent e) {
-        // TODO add your code here
-        System.out.println("aaa");
+        alarmHour = (int)hours.getValue();
+        alarmMinute = (int)minutes.getValue();
+        alarmSecond = (int)seconds.getValue();
+        alarmTime.setText(String.format("%2d", alarmHour) + ":"
+                + String.format("%02d", alarmMinute) + ":"
+                + String.format("%02d", alarmSecond));
+        if (alarmRemainderSwitch) {
+            alarm.offAlarm();
+            alarm.setAlarmTime(alarmHour, alarmMinute, alarmSecond, timeZone);
+            System.out.println("添加时打开");
+            alarm.onAlarm();
+        }
+        else {
+            alarm.setAlarmTime(alarmHour, alarmMinute, alarmSecond, timeZone);
+        }
+    }
+
+    public void alarmEnd() {
+        alarmSwitch.setSelected(false);
+        alarmRemainderSwitch = false;
+        //播放音乐
+        if (alarmVoiceSwitch)
+            musicPlayer.play();
+
+        //弹窗提示
+        JOptionPane.showMessageDialog(this, "闹钟时间到！", "闹钟",
+                JOptionPane.INFORMATION_MESSAGE);
+
+        //停止播放
+        if (alarmVoiceSwitch)
+            musicPlayer.stop();
     }
     //--------------时钟区end--------------//
 
@@ -295,9 +344,11 @@ public class Clock extends JFrame {
         int currentValue = (int) jSpinner.getValue();
         if (max != 0 && currentValue > max){
             jSpinner.setValue(max);
+            msgToast.setMessage("老兄，太大了，设不上去了……");
         }
         else if (currentValue < 0){
             jSpinner.setValue(0);
+            msgToast.setMessage("别捣乱^&*&^%*^$#%不能再减了TNT");
         }
     }
 
