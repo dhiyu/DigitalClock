@@ -185,6 +185,7 @@ public class Clock extends JFrame {
         else {
             alarm.setAlarmTime(alarmHour, alarmMinute, alarmSecond, timeZone);
         }
+        msgToast.setMessage("设置闹钟成功！");
     }
 
     public void alarmEnd() {
@@ -202,6 +203,7 @@ public class Clock extends JFrame {
         if (selected_value == 1) {
             System.out.println("延迟再响");
             alarm.delayAlarm();
+            msgToast.setMessage("30S后将再次响铃！");
         }
 
         //停止播放
@@ -423,19 +425,19 @@ public class Clock extends JFrame {
         //======== this ========
         setTitle("\u591a\u529f\u80fd\u6570\u5b57\u949f");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        var contentPane = getContentPane();
+        Container contentPane = getContentPane();
         contentPane.setLayout(new BorderLayout());
 
         //======== toast ========
         {
             toast.setBorder(new TitledBorder("\u6d88\u606f\u63d0\u793a"));
-            toast.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
-            javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax
-            .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
-            .awt.Font("Dialo\u0067",java.awt.Font.BOLD,12),java.awt
-            .Color.red),toast. getBorder()));toast. addPropertyChangeListener(new java.beans.
-            PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("borde\u0072".
-            equals(e.getPropertyName()))throw new RuntimeException();}});
+//            toast.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
+//            javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax
+//            .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
+//            .awt.Font("Dialo\u0067",java.awt.Font.BOLD,12),java.awt
+//            .Color.red),toast. getBorder()));toast. addPropertyChangeListener(new java.beans.
+//            PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("borde\u0072".
+//            equals(e.getPropertyName()))throw new RuntimeException();}});
             toast.setLayout(new BorderLayout(5, 5));
 
             //---- message ----

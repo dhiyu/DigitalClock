@@ -5,7 +5,7 @@
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
       </element>
-      <element id="module-output" name="soft" />
+      <element id="module-output" name="shiyu" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/mp3spi-1.9.5.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jlayer-1.0.1.4.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/junit-3.8.2.jar" path-in-jar="/" />
