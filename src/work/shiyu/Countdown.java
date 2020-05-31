@@ -1,3 +1,5 @@
+package work.shiyu;
+
 /**
  * @author shiyu
  */

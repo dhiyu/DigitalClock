@@ -1,3 +1,5 @@
+package work.shiyu;
+
 import java.util.*;
 
 public class Alarm {

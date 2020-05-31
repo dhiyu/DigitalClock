@@ -1,3 +1,5 @@
+package work.shiyu;
+
 import javax.swing.*;
 
 public class Main {

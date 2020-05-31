@@ -1,3 +1,5 @@
+package work.shiyu;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
@@ -372,7 +374,7 @@ public class Clock extends JFrame {
      */
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Yu Shi
+        // Generated using JFormDesigner Evaluation license - unknown
         toast = new JPanel();
         message = new JLabel();
         MainPanel = new JTabbedPane();
@@ -380,6 +382,7 @@ public class Clock extends JFrame {
         panel5 = new JPanel();
         panel4 = new JPanel();
         currentTime = new JLabel();
+        panel9 = new JPanel();
         panel7 = new JPanel();
         label15 = new JLabel();
         panel6 = new JPanel();
@@ -431,13 +434,11 @@ public class Clock extends JFrame {
         //======== toast ========
         {
             toast.setBorder(new TitledBorder("\u6d88\u606f\u63d0\u793a"));
-//            toast.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
-//            javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e",javax
-//            .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
-//            .awt.Font("Dialo\u0067",java.awt.Font.BOLD,12),java.awt
-//            .Color.red),toast. getBorder()));toast. addPropertyChangeListener(new java.beans.
-//            PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("borde\u0072".
-//            equals(e.getPropertyName()))throw new RuntimeException();}});
+            toast.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder (
+            0, 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder
+            . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .
+            red ) ,toast. getBorder () ) ); toast. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java .
+            beans. PropertyChangeEvent e) { if( "\u0062ord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
             toast.setLayout(new BorderLayout(5, 5));
 
             //---- message ----
@@ -472,6 +473,28 @@ public class Clock extends JFrame {
                         currentTime.setHorizontalAlignment(SwingConstants.CENTER);
                         currentTime.setFont(currentTime.getFont().deriveFont(currentTime.getFont().getStyle() | Font.BOLD, currentTime.getFont().getSize() + 15f));
                         panel4.add(currentTime, BorderLayout.CENTER);
+
+                        //======== panel9 ========
+                        {
+                            panel9.setPreferredSize(new Dimension(200, 200));
+                            panel9.setLayout(null);
+
+                            {
+                                // compute preferred size
+                                Dimension preferredSize = new Dimension();
+                                for(int i = 0; i < panel9.getComponentCount(); i++) {
+                                    Rectangle bounds = panel9.getComponent(i).getBounds();
+                                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
+                                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
+                                }
+                                Insets insets = panel9.getInsets();
+                                preferredSize.width += insets.right;
+                                preferredSize.height += insets.bottom;
+                                panel9.setMinimumSize(preferredSize);
+                                panel9.setPreferredSize(preferredSize);
+                            }
+                        }
+                        panel4.add(panel9, BorderLayout.WEST);
                     }
                     panel5.add(panel4, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -790,7 +813,7 @@ public class Clock extends JFrame {
     }
 
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Yu Shi
+    // Generated using JFormDesigner Evaluation license - unknown
     private JPanel toast;
     private JLabel message;
     private JTabbedPane MainPanel;
@@ -798,6 +821,7 @@ public class Clock extends JFrame {
     private JPanel panel5;
     private JPanel panel4;
     private JLabel currentTime;
+    private JPanel panel9;
     private JPanel panel7;
     private JLabel label15;
     private JPanel panel6;

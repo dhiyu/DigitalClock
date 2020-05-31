@@ -48,6 +48,12 @@ new FormModel {
 							}, new FormLayoutConstraints( class java.lang.String ) {
 								"value": "Center"
 							} )
+							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
+								name: "panel9"
+								"preferredSize": new java.awt.Dimension( 200, 200 )
+							}, new FormLayoutConstraints( class java.lang.String ) {
+								"value": "West"
+							} )
 						}, new FormLayoutConstraints( class com.jformdesigner.runtime.GridBagConstraintsEx ) {
 							"gridwidth": 3
 						} )
