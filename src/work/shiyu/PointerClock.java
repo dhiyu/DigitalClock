@@ -3,8 +3,15 @@ package work.shiyu;
 import javax.swing.*;
 import java.awt.*;
 import java.util.Calendar;
+import java.util.TimeZone;
 
 public class PointerClock extends JPanel {
+    TimeZone timeZone = TimeZone.getDefault();
+
+    public void changeTimeZone(TimeZone newTimeZone) {
+         timeZone = newTimeZone;
+    }
+
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -13,7 +20,7 @@ public class PointerClock extends JPanel {
 
         super.paintComponent(g);
 
-        Calendar calendar = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance(timeZone);
         int hour = calendar.get(Calendar.HOUR);
         int minute = calendar.get(Calendar.MINUTE);
         int second = calendar.get(Calendar.SECOND);
@@ -24,7 +31,7 @@ public class PointerClock extends JPanel {
         int yCenter = getHeight() / 2;
 
         //表盘
-        g.setColor(Color.BLACK);
+        g.setColor(Color.WHITE);
         g.drawOval(xCenter - clockRadius,yCenter - clockRadius,
                 2 * clockRadius,2 * clockRadius);
 

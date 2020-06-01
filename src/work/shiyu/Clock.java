@@ -79,6 +79,7 @@ public class Clock extends JFrame {
         public void run() {
             while(true) {
                 calendar = Calendar.getInstance(timeZone);
+                pointerClock.repaint();
                 String currentTime = "<html><p style=\"text-align:center\">"
                         + calendar.get(Calendar.YEAR) + "年"
                         + (calendar.get(Calendar.MONTH) + 1) + "月"
@@ -133,8 +134,9 @@ public class Clock extends JFrame {
             return;
         }
         else {
-            timeZone=TimeZone.getTimeZone(zone);
+            timeZone = TimeZone.getTimeZone(zone);
             zoneGMT = zone;
+            pointerClock.changeTimeZone(timeZone);
             msgToast.setMessage("时区和闹钟已切换到" + zone);
             if (alarmRemainderSwitch) {
                 //重设闹钟
@@ -154,10 +156,12 @@ public class Clock extends JFrame {
             msgToast.setMessage("闹钟已打开！");
             System.out.println("按钮闹钟打开");
             alarm.onAlarm();
+            alarmState.setText("闹钟已打开");
         }
         else {
             msgToast.setMessage("闹钟已关闭！");
             alarm.offAlarm();
+            alarmState.setText("闹钟已关闭");
         }
     }
 
@@ -382,7 +386,7 @@ public class Clock extends JFrame {
         panel5 = new JPanel();
         panel4 = new JPanel();
         currentTime = new JLabel();
-        panel9 = new JPanel();
+        pointerClock = new PointerClock();
         panel7 = new JPanel();
         label15 = new JLabel();
         panel6 = new JPanel();
@@ -392,7 +396,9 @@ public class Clock extends JFrame {
         panel3 = new JPanel();
         label12 = new JLabel();
         alarmTime = new JLabel();
-        label14 = new JLabel();
+        label10 = new JLabel();
+        alarmState = new JLabel();
+        label1 = new JLabel();
         alarmSwitch = new JCheckBox();
         alarmVoice = new JCheckBox();
         label19 = new JLabel();
@@ -434,11 +440,12 @@ public class Clock extends JFrame {
         //======== toast ========
         {
             toast.setBorder(new TitledBorder("\u6d88\u606f\u63d0\u793a"));
-            toast.setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border .EmptyBorder (
-            0, 0 ,0 , 0) ,  "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn" , javax. swing .border . TitledBorder. CENTER ,javax . swing. border .TitledBorder
-            . BOTTOM, new java. awt .Font ( "Dia\u006cog", java .awt . Font. BOLD ,12 ) ,java . awt. Color .
-            red ) ,toast. getBorder () ) ); toast. addPropertyChangeListener( new java. beans .PropertyChangeListener ( ){ @Override public void propertyChange (java .
-            beans. PropertyChangeEvent e) { if( "\u0062ord\u0065r" .equals ( e. getPropertyName () ) )throw new RuntimeException( ) ;} } );
+            toast.setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new javax. swing. border.
+            EmptyBorder( 0, 0, 0, 0) , "JF\u006frmDes\u0069gner \u0045valua\u0074ion", javax. swing. border. TitledBorder. CENTER, javax. swing
+            . border. TitledBorder. BOTTOM, new java .awt .Font ("D\u0069alog" ,java .awt .Font .BOLD ,12 ),
+            java. awt. Color. red) ,toast. getBorder( )) ); toast. addPropertyChangeListener (new java. beans. PropertyChangeListener( )
+            { @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062order" .equals (e .getPropertyName () ))
+            throw new RuntimeException( ); }} );
             toast.setLayout(new BorderLayout(5, 5));
 
             //---- message ----
@@ -474,27 +481,9 @@ public class Clock extends JFrame {
                         currentTime.setFont(currentTime.getFont().deriveFont(currentTime.getFont().getStyle() | Font.BOLD, currentTime.getFont().getSize() + 15f));
                         panel4.add(currentTime, BorderLayout.CENTER);
 
-                        //======== panel9 ========
-                        {
-                            panel9.setPreferredSize(new Dimension(200, 200));
-                            panel9.setLayout(null);
-
-                            {
-                                // compute preferred size
-                                Dimension preferredSize = new Dimension();
-                                for(int i = 0; i < panel9.getComponentCount(); i++) {
-                                    Rectangle bounds = panel9.getComponent(i).getBounds();
-                                    preferredSize.width = Math.max(bounds.x + bounds.width, preferredSize.width);
-                                    preferredSize.height = Math.max(bounds.y + bounds.height, preferredSize.height);
-                                }
-                                Insets insets = panel9.getInsets();
-                                preferredSize.width += insets.right;
-                                preferredSize.height += insets.bottom;
-                                panel9.setMinimumSize(preferredSize);
-                                panel9.setPreferredSize(preferredSize);
-                            }
-                        }
-                        panel4.add(panel9, BorderLayout.WEST);
+                        //---- pointerClock ----
+                        pointerClock.setPreferredSize(new Dimension(250, 250));
+                        panel4.add(pointerClock, BorderLayout.WEST);
                     }
                     panel5.add(panel4, new GridBagConstraints(0, 0, 3, 1, 0.0, 0.0,
                         GridBagConstraints.CENTER, GridBagConstraints.BOTH,
@@ -599,9 +588,18 @@ public class Clock extends JFrame {
                         alarmTime.setFont(alarmTime.getFont().deriveFont(alarmTime.getFont().getSize() + 3f));
                         panel3.add(alarmTime);
 
-                        //---- label14 ----
-                        label14.setText("                 ");
-                        panel3.add(label14);
+                        //---- label10 ----
+                        label10.setText("        ");
+                        panel3.add(label10);
+
+                        //---- alarmState ----
+                        alarmState.setText("\u95f9\u949f\u5df2\u5173\u95ed");
+                        alarmState.setFont(alarmState.getFont().deriveFont(alarmState.getFont().getStyle() | Font.BOLD, alarmState.getFont().getSize() + 3f));
+                        panel3.add(alarmState);
+
+                        //---- label1 ----
+                        label1.setText("        ");
+                        panel3.add(label1);
 
                         //---- alarmSwitch ----
                         alarmSwitch.setText("\u95f9\u949f\u5f00\u5173");
@@ -790,7 +788,7 @@ public class Clock extends JFrame {
                     panel1.setLayout(new GridLayout(2, 1, 5, 5));
 
                     //---- label9 ----
-                    label9.setIcon(new ImageIcon(getClass().getResource("/about_122.47482014388px_1210622_easyicon.net.png")));
+                    label9.setIcon(new ImageIcon(getClass().getResource("/work/shiyu/about_122.47482014388px_1210622_easyicon.net.png")));
                     label9.setHorizontalAlignment(SwingConstants.CENTER);
                     panel1.add(label9);
 
@@ -807,7 +805,7 @@ public class Clock extends JFrame {
             MainPanel.addTab("\u5173\u4e8e", null, About, "\u5173\u4e8e\u6211");
         }
         contentPane.add(MainPanel, BorderLayout.CENTER);
-        setSize(595, 445);
+        setSize(635, 485);
         setLocationRelativeTo(getOwner());
         // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
@@ -821,7 +819,7 @@ public class Clock extends JFrame {
     private JPanel panel5;
     private JPanel panel4;
     private JLabel currentTime;
-    private JPanel panel9;
+    private PointerClock pointerClock;
     private JPanel panel7;
     private JLabel label15;
     private JPanel panel6;
@@ -831,7 +829,9 @@ public class Clock extends JFrame {
     private JPanel panel3;
     private JLabel label12;
     private JLabel alarmTime;
-    private JLabel label14;
+    private JLabel label10;
+    private JLabel alarmState;
+    private JLabel label1;
     private JCheckBox alarmSwitch;
     private JCheckBox alarmVoice;
     private JLabel label19;

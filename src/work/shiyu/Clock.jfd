@@ -48,9 +48,9 @@ new FormModel {
 							}, new FormLayoutConstraints( class java.lang.String ) {
 								"value": "Center"
 							} )
-							add( new FormContainer( "javax.swing.JPanel", new FormLayoutManager( class com.jformdesigner.runtime.NullLayout ) ) {
-								name: "panel9"
-								"preferredSize": new java.awt.Dimension( 200, 200 )
+							add( new FormComponent( "work.shiyu.PointerClock" ) {
+								name: "pointerClock"
+								"preferredSize": new java.awt.Dimension( 250, 250 )
 							}, new FormLayoutConstraints( class java.lang.String ) {
 								"value": "West"
 							} )
@@ -150,8 +150,17 @@ new FormModel {
 								"font": new com.jformdesigner.model.SwingDerivedFont( null, 0, 3, false )
 							} )
 							add( new FormComponent( "javax.swing.JLabel" ) {
-								name: "label14"
-								"text": "                 "
+								name: "label10"
+								"text": "        "
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "alarmState"
+								"text": "闹钟已关闭"
+								"font": new com.jformdesigner.model.SwingDerivedFont( null, 1, 3, false )
+							} )
+							add( new FormComponent( "javax.swing.JLabel" ) {
+								name: "label1"
+								"text": "        "
 							} )
 							add( new FormComponent( "javax.swing.JCheckBox" ) {
 								name: "alarmSwitch"
@@ -341,7 +350,7 @@ new FormModel {
 						name: "panel1"
 						add( new FormComponent( "javax.swing.JLabel" ) {
 							name: "label9"
-							"icon": new com.jformdesigner.model.SwingIcon( 0, "/about_122.47482014388px_1210622_easyicon.net.png" )
+							"icon": new com.jformdesigner.model.SwingIcon( 0, "/work/shiyu/about_122.47482014388px_1210622_easyicon.net.png" )
 							"horizontalAlignment": 0
 						} )
 						add( new FormComponent( "javax.swing.JLabel" ) {
@@ -364,7 +373,7 @@ new FormModel {
 			} )
 		}, new FormLayoutConstraints( null ) {
 			"location": new java.awt.Point( 5, 10 )
-			"size": new java.awt.Dimension( 595, 445 )
+			"size": new java.awt.Dimension( 635, 485 )
 		} )
 	}
 }
