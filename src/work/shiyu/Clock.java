@@ -14,7 +14,7 @@ import javax.swing.event.*;
 /**
  * @author Yu Shi
  */
-public class Clock extends JFrame {
+public class Clock extends JFrame{
     //--------------变量区start--------------//
     private Countdown countdownTask = null;
     private int countdownTime;
@@ -274,7 +274,7 @@ public class Clock extends JFrame {
     }
 
     /**
-     *
+     * 倒计时结束回调函数
      */
     public void countdownEnd() {
         
@@ -443,13 +443,6 @@ public class Clock extends JFrame {
         //======== toast ========
         {
             toast.setBorder(new TitledBorder("\u6d88\u606f\u63d0\u793a"));
-            toast.setBorder(new javax.swing.border.CompoundBorder(new javax.swing.border.TitledBorder(new
-            javax.swing.border.EmptyBorder(0,0,0,0), "JF\u006frm\u0044es\u0069gn\u0065r \u0045va\u006cua\u0074io\u006e",javax
-            .swing.border.TitledBorder.CENTER,javax.swing.border.TitledBorder.BOTTOM,new java
-            .awt.Font("D\u0069al\u006fg",java.awt.Font.BOLD,12),java.awt
-            .Color.red),toast. getBorder()));toast. addPropertyChangeListener(new java.beans.
-            PropertyChangeListener(){@Override public void propertyChange(java.beans.PropertyChangeEvent e){if("\u0062or\u0064er".
-            equals(e.getPropertyName()))throw new RuntimeException();}});
             toast.setLayout(new BorderLayout(5, 5));
 
             //---- message ----

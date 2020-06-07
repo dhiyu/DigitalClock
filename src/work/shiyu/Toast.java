@@ -161,5 +161,4 @@ public class Toast extends JWindow {
         int height = (int) bounds.getHeight() + insets.top * 2;
         return new Dimension(width, height);
     }
-
 }  

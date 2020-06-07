@@ -12,7 +12,26 @@ public class MusicPlayer{
     private FileInputStream stream;
     private Player player;
     private Timer timer;
+    private Play play;
     private ByteArrayInputStream byteArrayInputStream;
+
+    class Play extends TimerTask {
+
+        /**
+         * The action to be performed by this timer task.
+         */
+        @Override
+        public void run() {
+            try {
+                byteArrayInputStream.reset();
+                player = new Player(byteArrayInputStream);
+                System.out.println("播放提示音！");
+                player.play();
+            } catch (JavaLayerException javaLayerException) {
+                javaLayerException.printStackTrace();
+            }
+        }
+    }
 
     public MusicPlayer() {
         File file=new File(musicFilePath);
@@ -22,27 +41,24 @@ public class MusicPlayer{
         } catch (IOException ioException) {
             ioException.printStackTrace();
         }
-    }
-
-    public void play() {
         timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                try {
-                    byteArrayInputStream.reset();
-                    player = new Player(byteArrayInputStream);
-                    System.out.println("播放提示音！");
-                    player.play();
-                } catch (JavaLayerException javaLayerException) {
-                    javaLayerException.printStackTrace();
-                }
-            }
-        }, 0, 2000);
     }
 
-    public void stop() {
+    synchronized public void play() {
+        if (play == null) {
+            play = new Play();
+            timer.schedule(play, 0, 2000);
+        }
+
+    }
+
+    synchronized public void stop() {
+        if (play == null) {
+            return;
+        }
+        play.cancel();
         player.close();
-        timer.cancel();
+        play = null;
     }
 }
+

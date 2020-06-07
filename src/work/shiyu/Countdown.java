@@ -17,8 +17,8 @@ public class Countdown{
      *
      */
     public void start() {
-            countdownTask = new CountdownTask(this.seconds, clock);
-            countdownTask.start();
+        countdownTask = new CountdownTask(this.seconds, clock);
+        countdownTask.start();
     }
 
     /**
