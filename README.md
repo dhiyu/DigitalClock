@@ -23,10 +23,6 @@ Output artifact is in `./out/artifacts/shiyu_jar/shiyu.jar`.
 
 -OS:               Windows 10 Professional
 
-
-
-
-
-##References:
+## References:
 ###### mp3spi:  https://github.com/umjammer/mp3spi.
 ###### darcula: https://github.com/bulenkov/Darcula.
