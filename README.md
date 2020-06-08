@@ -26,6 +26,6 @@ Output artifact is in `./out/artifacts/shiyu_jar/shiyu.jar`.
 ###### darcula: https://github.com/bulenkov/Darcula.
 
 ## screenshots
-<image>https://shiyu.work/wordpress/wp-content/uploads/2020/06/QQ%E6%88%AA%E5%9B%BE20200608132312.png</image>
+![Alt text](https://shiyu.work/wordpress/wp-content/uploads/2020/06/QQ%E6%88%AA%E5%9B%BE20200608132312.png)
 
-<image>https://shiyu.work/wordpress/wp-content/uploads/2020/06/QQ%E6%88%AA%E5%9B%BE20200608132637.png</image>
+![Alt text](https://shiyu.work/wordpress/wp-content/uploads/2020/06/QQ%E6%88%AA%E5%9B%BE20200608132637.png)
