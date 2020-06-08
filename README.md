@@ -1,8 +1,6 @@
 # My Digital Clock
 
-**Author: Yu, Shi**
-
-**Nanjing University of Posts and Telecommunications.**
+**Author: Yu Shi, Nanjing University of Posts and Telecommunications.**
 
 ## Description:
 
