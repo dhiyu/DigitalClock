@@ -7,7 +7,7 @@
 This project is an implementation of digital clock which including international clocks and
 alarm function. Countdown function also deployed.
 
-<div align=center>![screenshot](https://github.com/dhiyu/DigitalClock/blob/master/%E5%9F%BA%E4%BA%8EJava%20Swing%E7%9A%84%E5%A4%9A%E5%8A%9F%E8%83%BD%E6%95%B0%E5%AD%97%E9%92%9F.png)</div>
+![screenshot](https://github.com/dhiyu/DigitalClock/blob/master/%E5%9F%BA%E4%BA%8EJava%20Swing%E7%9A%84%E5%A4%9A%E5%8A%9F%E8%83%BD%E6%95%B0%E5%AD%97%E9%92%9F.png)
 
 ## Built jar:
 
